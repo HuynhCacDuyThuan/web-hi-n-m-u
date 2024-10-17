@@ -29,7 +29,9 @@
 	object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
 	width: 100%; /* Chiều rộng 100% */
 }
-
+a.backtop.js-scroll-trigger.reveal {
+	background: pink !important;
+}
 .pink {
 	background: pink !important;
 }
@@ -42,151 +44,52 @@
 
 <body id="top">
 
-<th:block th:replace="~{user/fragment/header :: header}"></th:block>
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
 
 
 
 	<div class="container mt-5">
-    <h2 class="mb-4">Lịch sử đăng ký hiến máu của bạn</h2>
+		<h2 class="mb-4">Lịch sử đăng ký hiến máu của bạn</h2>
 
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Ngày Đăng Ký</th>
-                <th>Địa Điểm</th>
-                <th>Thời Gian Hiến</th>
-                <th>Trạng Thái</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Thông tin lịch sử hiến máu -->
-            <tr>
-                <td>10/10/2024</td>
-                <td>Trung Tâm Hiến Máu Nhân Đạo Tp.HCM</td>
-                <td>07:30 - 16:00</td>
-                <td><span class="badge badge-success">Đã Hiến</span></td>
-            </tr>
-            <tr>
-                <td>20/08/2024</td>
-                <td>Bệnh viện Chợ Rẫy</td>
-                <td>08:00 - 12:00</td>
-                <td><span class="badge badge-warning">Đã Đăng Ký</span></td>
-            </tr>
-            <tr>
-                <td>05/06/2024</td>
-                <td>Bệnh viện Nhân dân 115</td>
-                <td>07:30 - 16:00</td>
-                <td><span class="badge badge-success">Đã Hiến</span></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Ngày Đăng Ký</th>
+					<th>Địa Điểm</th>
+					<th>Thời Gian Hiến</th>
+					<th>Trạng Thái</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Thông tin lịch sử hiến máu -->
+				<tr>
+					<td>10/10/2024</td>
+					<td>Trung Tâm Hiến Máu Nhân Đạo Tp.HCM</td>
+					<td>07:30 - 16:00</td>
+					<td><span class="badge badge-success">Đã Hiến</span></td>
+				</tr>
+				<tr>
+					<td>20/08/2024</td>
+					<td>Bệnh viện Chợ Rẫy</td>
+					<td>08:00 - 12:00</td>
+					<td><span class="badge badge-warning">Đã Đăng Ký</span></td>
+				</tr>
+				<tr>
+					<td>05/06/2024</td>
+					<td>Bệnh viện Nhân dân 115</td>
+					<td>07:30 - 16:00</td>
+					<td><span class="badge badge-success">Đã Hiến</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 
 
 
 	<!-- footer Start -->
-	<footer class="footer section gray-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 mr-auto col-sm-6">
-					<div class="widget mb-5 mb-lg-0">
-						<div class="logo mb-4">
-							<img src="images/logo.png" alt="" class="img-fluid">
-						</div>
-						<p>Tempora dolorem voluptatum nam vero assumenda voluptate,
-							facilis ad eos obcaecati tenetur veritatis eveniet distinctio
-							possimus.</p>
-
-						<ul class="list-inline footer-socials mt-4">
-							<li class="list-inline-item"><a
-								href="https://www.facebook.com/themefisher"><i
-									class="icofont-facebook"></i></a></li>
-							<li class="list-inline-item"><a
-								href="https://twitter.com/themefisher"><i
-									class="icofont-twitter"></i></a></li>
-							<li class="list-inline-item"><a
-								href="https://www.pinterest.com/themefisher/"><i
-									class="icofont-linkedin"></i></a></li>
-						</ul>
-					</div>
-				</div>
-
-
-
-				<div class="col-lg-2 col-md-6 col-sm-6">
-					<div class="widget mb-5 mb-lg-0">
-						<h4 class="text-capitalize mb-3">Hỗ trợ</h4>
-						<div class="divider mb-4"></div>
-
-						<ul class="list-unstyled footer-menu lh-35">
-
-							<li><a href="#">Chính sách</a></li>
-
-							<li><a href="#">Câu hỏi</a></li>
-
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="widget widget-contact mb-5 mb-lg-0">
-						<h4 class="text-capitalize mb-3">Liên hệ</h4>
-						<div class="divider mb-4"></div>
-
-						<div class="footer-contact-block mb-4">
-							<div class="icon d-flex align-items-center">
-								<i class="icofont-email mr-3"></i> <span class="h6 mb-0">Hỗ
-									trợ 24/7</span>
-							</div>
-							<h4 class="mt-2">
-								<a href="tel:0357677609">thithanhhien23@gmail.com</a>
-							</h4>
-						</div>
-
-						<div class="footer-contact-block">
-							<div class="icon d-flex align-items-center">
-								<i class="icofont-support mr-3"></i> <span class="h6 mb-0">Thứ
-									hai đến thứ sáu : 7:00 - 17:00</span>
-							</div>
-							<h4 class="mt-2">
-								<a href="tel:0357677609">0357677609</a>
-							</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="footer-btm py-4 mt-5">
-				<div class="row align-items-center justify-content-between">
-					<div class="col-lg-6">
-						<div class="copyright">
-							&copy; Copyright Reserved to <span class="text-color">Novena</span>
-							by <a href="https://themefisher.com/" target="_blank">Themefisher</a>
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<div class="subscribe-form text-lg-right mt-5 mt-lg-0">
-							<form action="#" class="subscribe">
-								<input type="text" class="form-control"
-									placeholder="Your Email address"> <a href="#"
-									class="btn btn-main-2 btn-round-full">Subscribe</a>
-							</form>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-4">
-						<a class="backtop js-scroll-trigger" href="#top"> <i
-							class="icofont-long-arrow-up"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
 
 
 	<!-- 
