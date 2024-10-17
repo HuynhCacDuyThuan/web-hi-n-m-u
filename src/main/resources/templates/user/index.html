@@ -22,81 +22,20 @@
 
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+.pink {
+	background: pink !important;
+}
 
+.pink-cl {
+	color: pink !important;
+}
+</style>
 </head>
 
 <body id="top">
 
-	<header>
-		<div class="header-top-bar">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-6">
-						<ul class="top-bar-info list-inline-item pl-0 mb-0">
-							<li class="list-inline-item"><a
-								href="mailto: thithanhhien23@gmail.com"><i
-									class="icofont-support-faq mr-2"></i>support@novena.com</a></li>
-							<li class="list-inline-item"><i
-								class="icofont-location-pin mr-2"></i>Đà nẵng</li>
-						</ul>
-					</div>
-					<div class="col-lg-6">
-						<div class="text-lg-right top-right-bar mt-2 mt-lg-0">
-							<a href="tel:+23-345-67890"> <span>Liên hệ : </span> <span
-								class="h4">0357677609</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navigation" id="navbar">
-			<div class="container">
-				<a class="navbar-brand" href="index.html"> <img
-					src="images/logo.png" alt="" class="img-fluid">
-				</a>
-
-				<button class="navbar-toggler collapsed" type="button"
-					data-toggle="collapse" data-target="#navbarmain"
-					aria-controls="navbarmain" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="icofont-navigation-menu"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarmain">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="/">Trang
-								chủ</a></li>
-						<li class="nav-item"><a class="nav-link" href="/tin-tuc">Tin
-								tức</a></li>
-						<li class="nav-item"><a class="nav-link" href="/service">Hiến
-								máu</a></li>
-
-
-
-
-						<li class="nav-item"><a class="nav-link" href="/contact">Liên
-								hệ</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="icofont-user-alt-3"></i>
-						</a>
-							<div class="dropdown-menu" aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="/login">Đăng nhập</a> <a
-									class="dropdown-item" href="/register">Đăng ký</a> <a
-									class="dropdown-item" href="/register">Thông tin cá
-									nhân</a> <a class="dropdown-item" href="/register">Lịch sử
-									đăng kí hiến máu</a>
-							</div></li>
-
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
-
+		<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
 
 
@@ -123,18 +62,18 @@
 					<div class="feature-block d-lg-flex">
 						<div class="feature-item mb-5 mb-lg-0">
 							<div class="feature-icon mb-4">
-								<i class="icofont-surgeon-alt"></i>
+								<i class="icofont-surgeon-alt pink-cl"></i>
 							</div>
 							<span>Dịch vụ 24 giờ</span>
 							<h4 class="mb-3">Hỗ trợ trực tuyến</h4>
 
-							<a href="appoinment.html" class="btn btn-main btn-round-full">Đặt
+							<a href="appoinment.html" class="btn btn-main-2 btn-round-full">Đặt
 								lịch</a>
 						</div>
 
 						<div class="feature-item mb-5 mb-lg-0">
 							<div class="feature-icon mb-4">
-								<i class="icofont-ui-clock"></i>
+								<i class="icofont-ui-clock pink-cl"></i>
 							</div>
 							<span>Lịch trịch thời gian</span>
 							<h4 class="mb-3">Thời gian làm việc</h4>
@@ -151,7 +90,7 @@
 
 						<div class="feature-item mb-5 mb-lg-0">
 							<div class="feature-icon mb-4">
-								<i class="icofont-support"></i>
+								<i class="icofont-support pink-cl"></i>
 							</div>
 							<span>Trường hợp khẩn cấp</span>
 							<h4 class="mb-3">0357677609</h4>
@@ -196,28 +135,28 @@
 	<section class="cta-section ">
 		<div class="container">
 			<div class="cta position-relative">
-				<div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="counter-stat">
+				<div class="row ">
+					<div class="col-lg-3 col-md-6 col-sm-6 pink">
+						<div class="counter-stat pink">
 							<i class="icofont-doctor"></i> <span class="h3">58</span>k
 							<p>Happy People</p>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="counter-stat">
+					<div class="col-lg-3 col-md-6 col-sm-6 pink">
+						<div class="counter-stat pink">
 							<i class="icofont-flag"></i> <span class="h3">700</span>+
 							<p>Surgery Comepleted</p>
 						</div>
 					</div>
 
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="counter-stat">
+					<div class="col-lg-3 col-md-6 col-sm-6 pink">
+						<div class="counter-stat pink">
 							<i class="icofont-badge"></i> <span class="h3">40</span>+
 							<p>Expert Doctors</p>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="counter-stat">
+					<div class="col-lg-3 col-md-6 col-sm-6 pink">
+						<div class="counter-stat pink">
 							<i class="icofont-globe"></i> <span class="h3">20</span>
 							<p>Worldwide Branch</p>
 						</div>

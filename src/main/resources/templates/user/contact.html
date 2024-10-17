@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description"
@@ -22,87 +22,27 @@
 
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+.pink {
+	background: pink !important;
+}
 
+.pink-cl {
+	color: pink !important;
+}
+</style>
 </head>
 
 <body id="top">
 
 
-	<header>
-		<div class="header-top-bar">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-6">
-						<ul class="top-bar-info list-inline-item pl-0 mb-0">
-							<li class="list-inline-item"><a
-								href="mailto: thithanhhien23@gmail.com"><i
-									class="icofont-support-faq mr-2"></i>support@novena.com</a></li>
-							<li class="list-inline-item"><i
-								class="icofont-location-pin mr-2"></i>Đà nẵng</li>
-						</ul>
-					</div>
-					<div class="col-lg-6">
-						<div class="text-lg-right top-right-bar mt-2 mt-lg-0">
-							<a href="tel:+23-345-67890"> <span>Liên hệ : </span> <span
-								class="h4">0357677609</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<nav class="navbar navbar-expand-lg navigation" id="navbar">
-			<div class="container">
-				<a class="navbar-brand" href="index.html"> <img
-					src="images/logo.png" alt="" class="img-fluid">
-				</a>
-
-				<button class="navbar-toggler collapsed" type="button"
-					data-toggle="collapse" data-target="#navbarmain"
-					aria-controls="navbarmain" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="icofont-navigation-menu"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarmain">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="/">Trang
-								chủ</a></li>
-						<li class="nav-item"><a class="nav-link" href="/tin-tuc">Tin
-								tức</a></li>
-						<li class="nav-item"><a class="nav-link" href="/service">Hiến
-								máu</a></li>
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
 
 
 
-						<li class="nav-item"><a class="nav-link" href="/contact">Liên
-								hệ</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="icofont-user-alt-3"></i>
-						</a>
-							<div class="dropdown-menu" aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="/login">Đăng nhập</a> <a
-									class="dropdown-item" href="/register">Đăng ký</a> <a
-									class="dropdown-item" href="/register">Thông tin cá nhân</a> <a
-									class="dropdown-item" href="/register">Lịch sử đăng kí hiến
-									máu</a>
-							</div></li>
-
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
-
-
-
-
-	<section class="page-title bg-1">
-		<div class="overlay"></div>
+	<section class="page-title bg-1 pink">
+		<div class=""></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminLTE 3 | Dashboard</title>
+<link
+	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
+	rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
+	rel="stylesheet">
+
+<!-- AdminLTE Theme -->
+<link th:href="@{/dist/css/adminlte.min.css}" rel="stylesheet">
+
+<script th:src="@{'https://code.jquery.com/jquery-3.6.0.min.js'}"></script>
+<style type="text/css">
+.small-box {
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-box .icon {
+	font-size: 60px;
+	opacity: 0.7;
+}
+
+.card {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<!-- Navbar -->
+
+		<th:block th:replace="~{admin/fragment/navbar :: navbar}"></th:block>
+		<th:block th:replace="~{admin/fragment/slidebar :: slidebar}"></th:block>
+
+		<!-- Content Wrapper -->
+		<div class="content-wrapper">
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Quản lí người dùng</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Danh Sách Người Dùng</h3>
+
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0">
+									<table class="table table-hover text-nowrap">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tên Người Dùng</th>
+												<th>Email</th>
+												<th>Vai Trò</th>
+												<th>Trạng Thái</th>
+												<th>Thao Tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>Nguyễn Văn A</td>
+												<td>nguyenvana@example.com</td>
+												<td>Admin</td>
+												<td><span class="badge bg-success">Hoạt Động</span></td>
+												<td><a href="/users/lock/1"
+													class="btn btn-warning btn-sm"> <i class="fas fa-lock"></i>
+														Khóa
+												</a> <a href="/users/view/1" class="btn btn-primary btn-sm">
+														<i class="fas fa-eye"></i> Xem Chi Tiết
+												</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>Trần Thị B</td>
+												<td>tranthib@example.com</td>
+												<td>Người Dùng</td>
+												<td><span class="badge bg-warning">Tài khoản
+														khoá</span></td>
+												<td><a href="/users/lock/1"
+													class="btn btn-warning btn-sm"> <i class="fas fa-lock"></i>
+														Khóa
+												</a> <a href="/users/view/1" class="btn btn-primary btn-sm">
+														<i class="fas fa-eye"></i> Xem Chi Tiết
+												</a> </td>
+											</tr>
+											<!-- Thêm người dùng khác -->
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+
+		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
+
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminLTE 3 | Dashboard</title>
+<link
+	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
+	rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
+	rel="stylesheet">
+
+<!-- AdminLTE Theme -->
+<link th:href="@{/dist/css/adminlte.min.css}" rel="stylesheet">
+
+<script th:src="@{'https://code.jquery.com/jquery-3.6.0.min.js'}"></script>
+<style type="text/css">
+.small-box {
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-box .icon {
+	font-size: 60px;
+	opacity: 0.7;
+}
+
+.card {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+
+<body>
+
+
+	<div th:fragment="slidebar">
+		<!-- Sidebar -->
+		<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<a href="/" class="brand-link"> <img
+				src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+				class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-light">PinkSpot</span>
+			</a>
+
+			<div class="sidebar">
+				<!-- Sidebar User Panel -->
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					<div class="image">
+						<img
+							src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+							class="img-circle elevation-2" alt="User Image">
+					</div>
+					<div class="info">
+						<a href="#" class="d-block">John Smith</a>
+					</div>
+				</div>
+
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column"
+						data-widget="treeview" role="menu" data-accordion="false">
+
+						<!-- Dashboard -->
+						<li class="nav-item"><a href="/admin/index" class="nav-link">
+								<i class="nav-icon fas fa-home"></i>
+								<p>Dashboard</p>
+						</a></li>
+
+						<!-- Quản lý Hiến máu -->
+						<li class="nav-item"><a href="/admin/blood" class="nav-link">
+								<i class="nav-icon fas fa-tint"></i>
+								<p>Quản lý Hiến máu</p>
+						</a></li>
+
+					
+						<!-- Người dùng -->
+						<li class="nav-item"><a href="/admin/users" class="nav-link">
+								<i class="nav-icon fas fa-users"></i>
+								<p>Quản lý Người dùng</p>
+						</a></li>
+
+
+
+						<!-- Sự kiện Hiến máu -->
+						<li class="nav-item"><a href="/admin/event-blood"
+							class="nav-link"> <i class="nav-icon fas fa-calendar-alt"></i>
+								<p>Sự kiện Hiến máu</p>
+						</a></li>
+
+
+						<li class="nav-item"><a href="/admin/notifications"
+							class="nav-link"> <i class="nav-icon fas fa-bell"></i>
+								<p>
+									Quản lý Thông báo <span
+										class="badge badge-warning navbar-badge">3</span>
+									<!-- Số lượng thông báo -->
+								</p>
+						</a></li>
+
+
+						<!-- Sự kiện Hiến máu -->
+						<li class="nav-item"><a href="/admin/volunteer"
+							class="nav-link"> <i class="nav-icon fas fa-list-alt"></i>
+								<p>Danh sách tình nguyện</p>
+						</a></li>
+
+
+
+
+					</ul>
+				</nav>
+			</div>
+		</aside>
+
+
+		<!-- jQuery -->
+		<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+		<!-- Bootstrap 4 -->
+		<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<!-- AdminLTE App -->
+		<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

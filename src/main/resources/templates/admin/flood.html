@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminLTE 3 | Dashboard</title>
+<link
+	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
+	rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
+	rel="stylesheet">
+
+<!-- AdminLTE Theme -->
+<link th:href="@{/dist/css/adminlte.min.css}" rel="stylesheet">
+
+<script th:src="@{'https://code.jquery.com/jquery-3.6.0.min.js'}"></script>
+<style type="text/css">
+.small-box {
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal.show {
+	display: block !important;
+}
+/* Căn giữa modal theo chiều dọc và ngang */
+.modal-dialog-centered {
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+}
+
+/* Đảm bảo modal không quá cao */
+.modal-content {
+	margin: auto;
+	max-height: calc(100vh - 3.5rem); /* Giới hạn chiều cao modal */
+	overflow-y: auto;
+}
+
+.small-box .icon {
+	font-size: 60px;
+	opacity: 0.7;
+}
+
+.card {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<!-- Navbar -->
+
+		<th:block th:replace="~{admin/fragment/navbar :: navbar}"></th:block>
+		<th:block th:replace="~{admin/fragment/slidebar :: slidebar}"></th:block>
+
+		<!-- Content Wrapper -->
+		<div class="content-wrapper">
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Quản lý hiến máu</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Danh Sách Lượt Hiến Máu</h3>
+
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body table-responsive p-0">
+									<table class="table table-hover text-nowrap">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Người Hiến Máu</th>
+												<th>Ngày Đăng Hiến Máu</th>
+												<th>Ngày Hiến Máu</th>
+												<th>Số Lượng (ml)</th>
+												<th>Nhóm Máu</th>
+												<th>Trạng Thái</th>
+												<th>Thao Tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>Nguyễn Văn A</td>
+												<td>2024-10-01</td>
+												<td>2024-10-01</td>
+												<td>350</td>
+												<td>O+</td>
+												<td><span class="badge bg-success">Đã Xác Nhận</span></td>
+												<td><a href="/donations/view/1"
+													class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i>
+														Xem Chi Tiết
+												</a> <a onclick="openConfirmationModal()"
+													class="btn btn-info btn-sm"> <i class="fas fa-edit"></i>
+														Xác nhận
+												</a> <a href="#" onclick="confirmDelete(1)"
+													class="btn btn-danger btn-sm"> <i
+														class="fas fa-trash-alt"></i> Xóa
+												</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>Trần Thị B</td>
+												<td>2024-10-01</td>
+												<td>2024-09-25</td>
+												<td>450</td>
+												<td>A-</td>
+												<td><span class="badge bg-warning">Chờ Xác Nhận</span></td>
+												<td><a href="/donations/view/2"
+													class="btn btn-primary btn-sm"> <i class="fas fa-eye"></i>
+														Xem Chi Tiết
+												</a> <a onclick="openConfirmationModal()"
+													class="btn btn-info btn-sm"> <i class="fas fa-edit"></i>
+														Xác nhận
+												</a> <a href="#" onclick="confirmDelete(2)"
+													class="btn btn-danger btn-sm"> <i
+														class="fas fa-trash-alt"></i> Xóa
+												</a></td>
+											</tr>
+											<!-- Thêm lượt hiến máu khác -->
+										</tbody>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+
+		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
+
+	</div>
+	<div id="confirmationModal" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Xác Nhận</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMessage">
+
+						<form>
+							<div class="form-group">
+								<label for="eventName">CCCD/CMND</label> <input type="text"
+									class="form-control" id="eventName"
+									placeholder="Căn cước công dân hoặc chứng minh nhân dân">
+							</div>
+							<div class="form-group">
+								<label for="eventLocation">Số lượng máu</label> <input
+									type="text" class="form-control" id="eventLocation"
+									placeholder="Số lượng máu">
+							</div>
+
+							<div class="form-group">
+								<label for="bloodGroup">Nhóm máu</label> <select
+									class="form-control" id="bloodGroup">
+									<option value="">Chọn nhóm máu</option>
+									<option value="A+">A</option>
+
+									<option value="B+">B</option>
+
+									<option value="AB+">AB</option>
+
+									<option value="O+">O</option>
+
+								</select>
+							</div>
+							<button type="submit" class="btn btn-primary">Lưu</button>
+						</form>
+
+					</div>
+
+					<!-- Spinner loading ẩn đi ban đầu -->
+					<div id="loadingSpinner" class="text-center" style="display: none;">
+						<div class="spinner-border text-info" role="status">
+							<span class="sr-only">Đang xử lý...</span>
+						</div>
+						<p>Đang tiến hành xác nhận...</p>
+					</div>
+
+					<!-- Thông báo thành công với dấu tick -->
+					<div id="successMessage" class="text-center" style="display: none;">
+						<i class="fas fa-check-circle text-success"
+							style="font-size: 3rem;"></i>
+						<p class="mt-2">Xác nhận thành công!</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Hủy</button>
+					<button type="button" class="btn btn-info" id="confirmButton">Xác
+						Nhận</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		document
+				.addEventListener(
+						'DOMContentLoaded',
+						function() {
+							document
+									.getElementById('confirmButton')
+									.addEventListener(
+											'click',
+											function() {
+												// Ẩn nút và thông báo ban đầu
+												document
+														.getElementById('modalMessage').style.display = 'none';
+												document
+														.getElementById('confirmButton').style.display = 'none';
+
+												// Hiển thị spinner loading
+												document
+														.getElementById('loadingSpinner').style.display = 'block';
+
+												// Giả lập quá trình xác nhận
+												setTimeout(
+														function() {
+															// Ẩn spinner loading
+															document
+																	.getElementById('loadingSpinner').style.display = 'none';
+
+															// Hiển thị thông báo thành công với dấu tick
+															document
+																	.getElementById('successMessage').style.display = 'block';
+
+															// Đóng modal sau 2 giây
+															setTimeout(
+																	function() {
+																		$(
+																				'#confirmationModal')
+																				.modal(
+																						'hide');
+
+																		// Reset modal cho lần sử dụng tiếp theo
+																		document
+																				.getElementById('modalMessage').style.display = 'block';
+																		document
+																				.getElementById('confirmButton').style.display = 'inline-block';
+																		document
+																				.getElementById('successMessage').style.display = 'none';
+																	}, 2000); // Thời gian hiển thị thông báo thành công
+														}, 3000); // Giả lập quá trình xử lý (3 giây)
+											});
+						});
+
+		// Hàm mở modal xác nhận
+		function openConfirmationModal() {
+			$('#confirmationModal').modal('show'); // Hiển thị modal
+		}
+	</script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Bootstrap 4 -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+	<!-- jQuery -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>
