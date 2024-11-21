@@ -9,31 +9,36 @@
 <title>Novena- Health & Care Medical template</title>
 
 <!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
 
-<!-- bootstrap.min css -->
-<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-<!-- Icon Font Css -->
-<link rel="stylesheet" href="plugins/icofont/icofont.min.css">
-<!-- Slick Slider  CSS -->
-<link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+<!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="plugins/slick-carousel/slick/slick-theme.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css"
-	rel="stylesheet">
-
+	th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+<!-- Icon Font CSS -->
+<link rel="stylesheet" th:href="@{/plugins/icofont/icofont.min.css}">
+<!-- Slick Slider CSS -->
+<link rel="stylesheet"
+	th:href="@{/plugins/slick-carousel/slick/slick.css}">
+<link rel="stylesheet"
+	th:href="@{/plugins/slick-carousel/slick/slick-theme.css}">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 <!-- Main Stylesheet -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
 <style type="text/css">
 .pink {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 </style>
 </head>
@@ -42,31 +47,18 @@ a.backtop.js-scroll-trigger.reveal {
 
 	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
-
 	<section class="page-title bg-1 pink">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="block text-center">
-
-
-
 						<h1 class="text-capitalize mb-5 text-lg">Đăng nhập</h1>
-
-						<!-- <ul class="list-inline breadcumb-nav">
-            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
-            <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50">All Doctors</a></li>
-          </ul> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-
-	<!-- portfolio -->
 	<section class="section doctors">
 		<div class="container">
 			<div>
@@ -80,101 +72,129 @@ a.backtop.js-scroll-trigger.reveal {
 									class="img-fluid" alt="Sample image">
 							</div>
 							<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-								<form>
-
-
+								<form id="loginForm">
+									<div id="error-message" style="color: red; margin-top: 10px;"></div>
 									<!-- Email input -->
 									<div data-mdb-input-init class="form-outline mb-4">
-										<input type="email" id="form3Example3"
+										<input type="email" id="form3Example3" name="email"
 											class="form-control form-control-lg"
-											placeholder="Enter a valid email address" /> <label
+											placeholder="Enter a valid email address" required /> <label
 											class="form-label" for="form3Example3">Email address</label>
 									</div>
 
 									<!-- Password input -->
 									<div data-mdb-input-init class="form-outline mb-3">
-										<input type="password" id="form3Example4"
+										<input type="password" id="form3Example4" name="password"
 											class="form-control form-control-lg"
-											placeholder="Enter password" /> <label class="form-label"
-											for="form3Example4">Password</label>
+											placeholder="Enter password" required /> <label
+											class="form-label" for="form3Example4">Password</label>
 									</div>
 
 									<div class="d-flex justify-content-between align-items-center">
-										<!-- Checkbox -->
 										<div class="form-check mb-0">
 											<input class="form-check-input me-2" type="checkbox" value=""
 												id="form2Example3" /> <label class="form-check-label"
 												for="form2Example3"> Remember me </label>
 										</div>
-										<a href="#!" class="text-body">Forgot password?</a>
+										<a href="/forget" class="text-body">Forgot password?</a>
 									</div>
 
 									<div class="text-center text-lg-start mt-4 pt-2">
-										<button type="button" data-mdb-button-init
-											data-mdb-ripple-init class="btn btn-primary btn-lg"
+										<button type="button" onclick="submitLoginForm()"
+											class="btn btn-primary btn-lg"
 											style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
 										<p class="small fw-bold mt-2 pt-1 mb-0">
-											Don't have an account? <a href="#!" class="link-danger">Register</a>
+											Don't have an account? <a href="/register"
+												class="link-danger">Register</a>
 										</p>
 									</div>
-
 								</form>
 							</div>
 						</div>
 					</div>
 					<div
 						class="pink d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-						<!-- Copyright -->
 						<div class="text-white mb-3 mb-md-0">Copyright © 2020. All
 							rights reserved.</div>
-						<!-- Copyright -->
-
-						<!-- Right -->
 						<div>
 							<a href="#!" class="text-white me-4"> <i
-								class="fab fa-facebook-f"></i>
-							</a> <a href="#!" class="text-white me-4"> <i
-								class="fab fa-twitter"></i>
-							</a> <a href="#!" class="text-white me-4"> <i
-								class="fab fa-google"></i>
-							</a> <a href="#!" class="text-white"> <i
-								class="fab fa-linkedin-in"></i>
-							</a>
+								class="fab fa-facebook-f"></i></a> <a href="#!"
+								class="text-white me-4"> <i class="fab fa-twitter"></i></a> <a
+								href="#!" class="text-white me-4"> <i class="fab fa-google"></i></a>
+							<a href="#!" class="text-white"> <i
+								class="fab fa-linkedin-in"></i></a>
 						</div>
-						<!-- Right -->
 					</div>
 				</section>
 			</div>
 		</div>
 	</section>
 
+	<script>
+    function submitLoginForm() {
+        const email = document.getElementById("form3Example3").value;
+        const password = document.getElementById("form3Example4").value;
+        const loginData = { email: email, password: password };
 
+        fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginData)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return response.text().then(text => { 
+                    document.getElementById("error-message").innerText = text; // Display error in div
+                    throw new Error(text); // Optional: keeps the error chain in case you need it
+                });
+            }
+        })
+        .then(data => {
+            // Clear any previous error message
+            document.getElementById("error-message").innerText = "";
 
-	<!-- 
-    Essential Scripts
-    =====================================-->
+            // Redirect based on user role
+            if (data.role === 'ADMIN') {
+                window.location.href = "/admin/index"; // Redirect to admin dashboard
+            } else {
+                window.location.href = "/"; // Redirect to user homepage
+            }
+        })
+        .catch(error => {
+            // Optionally, log the error in the console for debugging
+            console.error("Login error:", error.message);
+        });
+    }
+</script>
 
 
 	<!-- Main jQuery -->
-	<script src="plugins/jquery/jquery.js"></script>
+	<script th:src="@{/plugins/jquery/jquery.js}"></script>
 	<!-- Bootstrap 4.3.2 -->
-	<script src="plugins/bootstrap/js/popper.js"></script>
-	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="plugins/counterup/jquery.easing.js"></script>
+	<script th:src="@{/plugins/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- jQuery Easing for Counterup -->
+	<script th:src="@{/plugins/counterup/jquery.easing.js}"></script>
 	<!-- Slick Slider -->
-	<script src="plugins/slick-carousel/slick/slick.min.js"></script>
+	<script th:src="@{/plugins/slick-carousel/slick/slick.min.js}"></script>
+	<!-- Counterup Waypoints -->
+	<script th:src="@{/plugins/counterup/jquery.waypoints.min.js}"></script>
+	<!-- Shuffle Plugin -->
+	<script th:src="@{/plugins/shuffle/shuffle.min.js}"></script>
 	<!-- Counterup -->
-	<script src="plugins/counterup/jquery.waypoints.min.js"></script>
-
-	<script src="plugins/shuffle/shuffle.min.js"></script>
-	<script src="plugins/counterup/jquery.counterup.min.js"></script>
-	<!-- Google Map -->
-	<script src="plugins/google-map/map.js"></script>
+	<script th:src="@{/plugins/counterup/jquery.counterup.min.js}"></script>
+	<!-- Google Map Custom Script -->
+	<script th:src="@{/plugins/google-map/map.js}"></script>
+	<!-- Google Maps API -->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
-
-	<script src="js/script.js"></script>
-	<script src="js/contact.js"></script>
-
+	<!-- Main Script -->
+	<script th:src="@{/js/script.js}"></script>
+	<!-- Contact Form Script -->
+	<script th:src="@{/js/contact.js}"></script>
 </body>
 </html>

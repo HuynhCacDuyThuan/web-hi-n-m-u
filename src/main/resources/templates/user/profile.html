@@ -31,13 +31,15 @@
 }
 
 .pink {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 </style>
 </head>
@@ -52,17 +54,21 @@ a.backtop.js-scroll-trigger.reveal {
 	<div class="container mt-5 mb-3">
 		<div class="row">
 			<div class="col-lg-4">
-				<!-- Thông tin ảnh đại diện -->
+				<!-- User Avatar Card -->
 				<div class="card">
-					<img
-						src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
-						class="card-img-top" alt="User Avatar">
+					<img id="userAvatar"
+						th:src="${image != null && image != '' ? '/loadImage?imageName=' + image : 'https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo='}"
+						class="card-img-top" alt="User Avatar" style="cursor: pointer;">
 					<div class="card-body text-center">
 						<h4 id="userName">Nguyễn Văn A</h4>
 						<p id="userEmail" class="text-muted">nguyenvana@example.com</p>
 						<span id="userStatus" class="badge badge-success">Hoạt Động</span>
 					</div>
 				</div>
+
+				<!-- Hidden file input for selecting a new image -->
+				<input type="file" id="imageUpload" accept="image/*"
+					style="display: none;" />
 			</div>
 
 			<div class="col-lg-8">
@@ -74,33 +80,37 @@ a.backtop.js-scroll-trigger.reveal {
 					<div class="card-body">
 
 						<p>
-							<strong>Tên Người Dùng:</strong> <span id="userNameDetails">Nguyễn
-								Văn A</span>
+							<strong>Tên Người Dùng:</strong> <span id="userNameDetails"
+								th:text="${username}">Nguyễn Văn A</span>
 						</p>
 						<p>
-							<strong>Email:</strong> <span id="userEmailDetails">nguyenvana@example.com</span>
+							<strong>Email:</strong> <span id="userEmailDetails"
+								th:text="${email}">nguyenvana@example.com</span>
 						</p>
 						<p>
-							<strong>Địa chỉ</strong> <span id="userEmailDetails">Đà
-								nẵng</span>
+							<strong>Địa chỉ</strong> <span id="userEmailDetails"
+								th:text="${username}">Đà nẵng</span>
 						</p>
 						<p>
-							<strong>Giới tính :</strong> <span id="userEmailDetails">Nữ</span>
+							<strong>Giới tính :</strong> <span id="userEmailDetails"
+								th:text="${gender}">Nữ</span>
 						</p>
 						<p>
-							<strong>CCCD/CMND:</strong> <span id="userStatusDetails">3425252342</span>
+							<strong>CCCD/CMND:</strong> <span id="userStatusDetails"
+								th:text="${cccd}">3425252342</span>
 						</p>
 						<p>
 							<strong>Trạng Thái:</strong> <span id="userStatusDetails">Hoạt
 								Động</span>
 						</p>
 						<p>
-							<strong>Nhóm máu:</strong> <span id="userStatusDetails">A</span>
+							<strong>Nhóm máu:</strong> <span id="userStatusDetails"
+								th:text="${bloodGroup}">A</span>
 						</p>
 					</div>
 					<div class="card-footer">
-						<a href="/users/edit/1" class="btn btn-primary">Chỉnh Sửa</a> <a
-							href="/users/lock/1" class="btn btn-warning">Xoá Tài khoản</a>
+						<button onclick="deleteUser()" class="btn btn-warning">Xoá
+							Tài khoản</button>
 					</div>
 				</div>
 			</div>
@@ -112,7 +122,7 @@ a.backtop.js-scroll-trigger.reveal {
 
 
 	<!-- footer Start -->
-<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
+	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
 
 	<!-- 
     Essential Scripts
@@ -141,6 +151,67 @@ a.backtop.js-scroll-trigger.reveal {
 
 	<script src="js/script.js"></script>
 	<script src="js/contact.js"></script>
+
+	<script>
+    document.getElementById("userAvatar").addEventListener("click", function() {
+        document.getElementById("imageUpload").click();
+    });
+
+    document.getElementById("imageUpload").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        
+        if (file) {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            // AJAX request to upload the image
+            fetch(`/api/users/avatar`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Read the response text if successful
+                } else {
+                    throw new Error("Failed to update avatar.");
+                }
+            })
+            .then(data => {
+                const imageUrl = URL.createObjectURL(file); // Temporarily show the uploaded image
+                document.getElementById("userAvatar").src = imageUrl;
+                alert(data); // Shows "Avatar updated successfully!"
+            })
+            .catch(error => alert(error.message));
+        }
+    });
+</script>
+	<script>
+	function deleteUser() {
+	    if (confirm("Are you sure you want to delete this account? This action cannot be undone.")) {
+	        fetch('/delete-user', {
+	            method: 'GET',
+	            credentials: 'include' // Include credentials to send cookies (session information)
+	        })
+	        .then(response => {
+	            // Check if the response was successful
+	            if (response.ok) {
+	                return response.text(); // Parse and return the response text
+	            } else {
+	                throw new Error("Failed to delete user"); // Trigger catch block with an error
+	            }
+	        })
+	        .then(data => {
+	            alert(data); // Success message from server
+	            window.location.href = "/logout"; // Redirect user after deletion (optional)
+	        })
+	        .catch(error => {
+	            console.error("Error deleting user:", error);
+	            alert("An unexpected error occurred: " + error.message);
+	        });
+	    }
+	}
+
+</script>
 
 </body>
 </html>

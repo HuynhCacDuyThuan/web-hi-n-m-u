@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+<meta name="author" content="themefisher.com">
+
+<title>Novena- Health & Care Medical template</title>
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+
+<!-- bootstrap.min css -->
+<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+<!-- Icon Font Css -->
+<link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+<!-- Slick Slider  CSS -->
+<link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+<link rel="stylesheet"
+	href="plugins/slick-carousel/slick/slick-theme.css">
+
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+.pink {
+	background: pink !important;
+}
+
+a.backtop.js-scroll-trigger.reveal {
+	background: pink !important;
+}
+
+.pink-cl {
+	color: pink !important;
+}
+
+.overlay:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.9;
+	background: pink !important;
+}
+</style>
+</head>
+
+<body id="top">
+
+
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
+
+
+
+	<section class="page-title bg-1 pink">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<section class="h-100 bg-dark">
+					<div class="container py-5 h-100">
+						<div
+							class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col">
+								<div class="card card-registration my-4">
+									<div class="row g-0">
+										<div
+											class="col-xl-6 d-none d-xl-block d-flex justify-content-center align-items-center"
+											style="height: 100%;">
+											<img src="images/img-1.jpg" alt="Sample photo"
+												class="img-fluid"
+												style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+										</div>
+
+										<div class="col-xl-6">
+											<div class="card-body p-md-5 text-black">
+												<h3 class="mb-5 text-uppercase">Đăng kí</h3>
+
+												<div class="row">
+													<div class="col-md-12 mb-4">
+														<div data-mdb-input-init class="form-outline">
+															<input type="text" id="form3Example1m"
+																class="form-control form-control-lg" /> <label
+																class="form-label" for="form3Example1m">Họ tên</label>
+														</div>
+													</div>
+
+												</div>
+
+
+
+												<div data-mdb-input-init class="form-outline mb-4">
+													<input type="text" id="form3Example8"
+														class="form-control form-control-lg" /> <label
+														class="form-label" for="form3Example8">Địa chỉ</label>
+												</div>
+
+												<div
+													class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+													<h6 class="mb-0 me-4">Giới tính:</h6>
+
+													<div class="form-check form-check-inline mb-0 me-4">
+														<input class="form-check-input" type="radio"
+															name="inlineRadioOptions" id="femaleGender"
+															value="option1" /> <label class="form-check-label"
+															for="femaleGender">Nữ</label>
+													</div>
+
+													<div class="form-check form-check-inline mb-0 me-4">
+														<input class="form-check-input" type="radio"
+															name="inlineRadioOptions" id="maleGender" value="option2" />
+														<label class="form-check-label" for="maleGender">Nam</label>
+													</div>
+
+
+
+												</div>
+
+												<div class="row">
+													<div class="col-md-6 mb-4">
+
+														<select data-mdb-select-init>
+															<option value="1">State</option>
+															<option value="2">Option 1</option>
+															<option value="3">Option 2</option>
+															<option value="4">Option 3</option>
+														</select>
+
+													</div>
+													<div class="col-md-6 mb-4">
+
+														<select data-mdb-select-init>
+															<option value="1">City</option>
+															<option value="2">Option 1</option>
+															<option value="3">Option 2</option>
+															<option value="4">Option 3</option>
+														</select>
+
+													</div>
+												</div>
+
+												<div data-mdb-input-init class="form-outline mb-4">
+													<input type="date" id="form3Example9"
+														class="form-control form-control-lg" /> <label
+														class="form-label" for="form3Example9">Ngày sinh</label>
+												</div>
+
+												<div data-mdb-input-init class="form-outline mb-4">
+													<input type="text" id="form3Example90"
+														class="form-control form-control-lg" /> <label
+														class="form-label" for="form3Example90">Số
+														CMND/CCCD/Hộ Chiếu*</label>
+												</div>
+
+
+												<div data-mdb-input-init class="form-outline mb-4">
+													<input type="email" id="form3Example97"
+														class="form-control form-control-lg" /> <label
+														class="form-label" for="form3Example97">Email</label>
+												</div>
+
+												<div class="d-flex justify-content-center pt-3">
+
+													<button type="button" data-mdb-button-init
+														data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Đăng
+														kí</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		</div>
+	</section>
+	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
+	
+
+	<!-- 
+    Essential Scripts
+    =====================================-->
+
+
+	<!-- Main jQuery -->
+	<script src="plugins/jquery/jquery.js"></script>
+	<!-- Bootstrap 4.3.2 -->
+	<script src="plugins/bootstrap/js/popper.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="plugins/counterup/jquery.easing.js"></script>
+	<!-- Slick Slider -->
+	<script src="plugins/slick-carousel/slick/slick.min.js"></script>
+	<!-- Counterup -->
+	<script src="plugins/counterup/jquery.waypoints.min.js"></script>
+
+	<script src="plugins/shuffle/shuffle.min.js"></script>
+	<script src="plugins/counterup/jquery.counterup.min.js"></script>
+	<!-- Google Map -->
+	<script src="plugins/google-map/map.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+
+	<script src="js/script.js"></script>
+	<script src="js/contact.js"></script>
+
+</body>
+</html>

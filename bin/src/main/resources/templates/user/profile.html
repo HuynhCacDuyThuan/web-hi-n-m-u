@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+<meta name="author" content="themefisher.com">
+
+<title>Novena- Health & Care Medical template</title>
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+
+<!-- bootstrap.min css -->
+<link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+<!-- Icon Font Css -->
+<link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+<!-- Slick Slider  CSS -->
+<link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+<link rel="stylesheet"
+	href="plugins/slick-carousel/slick/slick-theme.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="css/style.css">
+<style>
+.news-image {
+	height: 300px; /* Đặt chiều cao cố định cho hình ảnh */
+	object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+	width: 100%; /* Chiều rộng 100% */
+}
+
+.pink {
+	background: pink !important;
+}
+a.backtop.js-scroll-trigger.reveal {
+	background: pink !important;
+}
+.pink-cl {
+	color: pink !important;
+}
+</style>
+</head>
+
+<body id="top">
+
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
+
+
+
+
+	<div class="container mt-5 mb-3">
+		<div class="row">
+			<div class="col-lg-4">
+				<!-- Thông tin ảnh đại diện -->
+				<div class="card">
+					<img
+						src="https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+						class="card-img-top" alt="User Avatar">
+					<div class="card-body text-center">
+						<h4 id="userName">Nguyễn Văn A</h4>
+						<p id="userEmail" class="text-muted">nguyenvana@example.com</p>
+						<span id="userStatus" class="badge badge-success">Hoạt Động</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-8">
+				<!-- Thông tin chi tiết -->
+				<div class="card">
+					<div class="card-header">
+						<h3>Thông Tin Chi Tiết</h3>
+					</div>
+					<div class="card-body">
+
+						<p>
+							<strong>Tên Người Dùng:</strong> <span id="userNameDetails">Nguyễn
+								Văn A</span>
+						</p>
+						<p>
+							<strong>Email:</strong> <span id="userEmailDetails">nguyenvana@example.com</span>
+						</p>
+						<p>
+							<strong>Địa chỉ</strong> <span id="userEmailDetails">Đà
+								nẵng</span>
+						</p>
+						<p>
+							<strong>Giới tính :</strong> <span id="userEmailDetails">Nữ</span>
+						</p>
+						<p>
+							<strong>CCCD/CMND:</strong> <span id="userStatusDetails">3425252342</span>
+						</p>
+						<p>
+							<strong>Trạng Thái:</strong> <span id="userStatusDetails">Hoạt
+								Động</span>
+						</p>
+						<p>
+							<strong>Nhóm máu:</strong> <span id="userStatusDetails">A</span>
+						</p>
+					</div>
+					<div class="card-footer">
+						<a href="/users/edit/1" class="btn btn-primary">Chỉnh Sửa</a> <a
+							href="/users/lock/1" class="btn btn-warning">Xoá Tài khoản</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- footer Start -->
+<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
+
+	<!-- 
+    Essential Scripts
+    =====================================-->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Main jQuery -->
+	<script src="plugins/jquery/jquery.js"></script>
+	<!-- Bootstrap 4.3.2 -->
+	<script src="plugins/bootstrap/js/popper.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="plugins/counterup/jquery.easing.js"></script>
+	<!-- Slick Slider -->
+	<script src="plugins/slick-carousel/slick/slick.min.js"></script>
+	<!-- Counterup -->
+	<script src="plugins/counterup/jquery.waypoints.min.js"></script>
+
+	<script src="plugins/shuffle/shuffle.min.js"></script>
+	<script src="plugins/counterup/jquery.counterup.min.js"></script>
+	<!-- Google Map -->
+	<script src="plugins/google-map/map.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+
+	<script src="js/script.js"></script>
+	<script src="js/contact.js"></script>
+
+</body>
+</html>

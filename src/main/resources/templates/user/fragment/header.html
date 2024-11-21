@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description"
@@ -40,7 +40,7 @@
 </style>
 </head>
 
-<body >
+<body>
 	<div th:fragment="header">
 		<header>
 			<div class="header-top-bar pink">
@@ -67,7 +67,7 @@
 			</div>
 			<nav class="navbar navbar-expand-lg navigation" id="navbar">
 				<div class="container">
-					<a class="navbar-brand" href="index.html"> <img
+					<a class="navbar-brand" href="/l"> <img
 						src="images/logo.png" alt="" class="img-fluid">
 					</a>
 
@@ -86,26 +86,27 @@
 									tức</a></li>
 							<li class="nav-item"><a class="nav-link" href="/service">Hiến
 									máu</a></li>
-
-
-
-
 							<li class="nav-item"><a class="nav-link" href="/contact">Liên
 									hệ</a></li>
+
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#" id="userDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false"> <i class="icofont-user-alt-3"></i>
-							</a>
-								<div class="dropdown-menu" aria-labelledby="userDropdown">
+							</a> <!-- Dropdown for not logged in -->
+								<div class="dropdown-menu" aria-labelledby="userDropdown"
+									th:unless="${isLoggedIn}">
 									<a class="dropdown-item" href="/login">Đăng nhập</a> <a
-										class="dropdown-item" href="/register">Đăng ký</a> <a
+										class="dropdown-item" href="/register">Đăng ký</a>
+								</div> <!-- Dropdown for logged in users -->
+								<div class="dropdown-menu" aria-labelledby="userDropdown"
+									th:if="${isLoggedIn}">
+									<a class="dropdown-item" th:text="${username}"></a> <a
+										class="dropdown-item" href="/logout">Logout</a> <a
 										class="dropdown-item" href="/profile">Thông tin cá nhân</a> <a
-										class="dropdown-item" href="/history-blood">Lịch sử đăng kí
-										hiến máu</a>
+										class="dropdown-item" href="/history-blood">Lịch sử đăng
+										ký hiến máu</a>
 								</div></li>
-
-
 						</ul>
 					</div>
 				</div>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description"
+	content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
+<meta name="author" content="themefisher.com">
+
+<title>Novena- Health & Care Medical template</title>
+
+<!-- Favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/images/favicon.ico}" />
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+<!-- Icon Font CSS -->
+<link rel="stylesheet" th:href="@{/plugins/icofont/icofont.min.css}">
+<!-- Slick Slider CSS -->
+<link rel="stylesheet"
+	th:href="@{/plugins/slick-carousel/slick/slick.css}">
+<link rel="stylesheet"
+	th:href="@{/plugins/slick-carousel/slick/slick-theme.css}">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+<!-- Main Stylesheet -->
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<style type="text/css">
+.pink {
+	background: #ea3b7b !important;
+}
+
+a.backtop.js-scroll-trigger.reveal {
+	background: #ea3b7b !important;
+}
+
+.pink-cl {
+	color: #ea3b7b !important;
+}
+</style>
+</head>
+
+<body id="top">
+
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
+
+	<section class="page-title bg-1 pink">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="block text-center">
+						<h1 class="text-capitalize mb-5 text-lg">Quên mật khẩu</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section doctors">
+		<div class="container">
+			<div>
+				<section class="vh-50">
+					<div class="container-fluid h-custom">
+						<div
+							class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col-md-9 col-lg-6 col-xl-5">
+								<img
+									src="https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-1123.jpg"
+									class="img-fluid" alt="Sample image">
+							</div>
+							<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+								<form id="resetPasswordForm">
+									<!-- Email input -->
+									<div class="form-outline mb-4">
+										<label class="form-label" for="emailInput">Email
+											address</label> <input type="email" id="emailInput"
+											class="form-control form-control-lg"
+											placeholder="Enter a valid email address" required />
+									</div>
+
+									<div class="text-center text-lg-start mt-4 pt-2">
+										<button type="submit" class="btn btn-primary btn-lg"
+											style="padding-left: 2.5rem; padding-right: 2.5rem;">
+											Reset</button>
+									</div>
+								</form>
+
+								<div id="responseMessage"
+									style="display: none; margin-top: 20px;"></div>
+
+							</div>
+						</div>
+					</div>
+					<div
+						class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+						<!-- Copyright -->
+						<div class="text-white mb-3 mb-md-0">Copyright © 2020. All
+							rights reserved.</div>
+						<!-- Copyright -->
+
+						<!-- Right -->
+						<div>
+							<a href="#!" class="text-white me-4"> <i
+								class="fab fa-facebook-f"></i>
+							</a> <a href="#!" class="text-white me-4"> <i
+								class="fab fa-twitter"></i>
+							</a> <a href="#!" class="text-white me-4"> <i
+								class="fab fa-google"></i>
+							</a> <a href="#!" class="text-white"> <i
+								class="fab fa-linkedin-in"></i>
+							</a>
+						</div>
+						<!-- Right -->
+					</div>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<!-- Essential Scripts -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$("#resetPasswordForm")
+									.submit(
+											function(event) {
+												event.preventDefault();
+												var email = $("#emailInput")
+														.val();
+
+												$
+														.ajax({
+															url : '/reset-password/request',
+															method : 'POST',
+															data : {
+																email : email
+															},
+															success : function(
+																	response) {
+																$(
+																		"#responseMessage")
+																		.html(
+																				'<p class="text-success">An email has been sent to reset your password.</p>')
+																		.show();
+															},
+															error : function(
+																	xhr) {
+																$(
+																		"#responseMessage")
+																		.html(
+																				'<p class="text-danger">Error: '
+																						+ xhr.responseText
+																						+ '</p>')
+																		.show();
+															}
+														});
+											});
+						});
+	</script>
+	<!-- Bootstrap 4.3.2 -->
+	<script th:src="@{/plugins/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- jQuery Easing for Counterup -->
+	<script th:src="@{/plugins/counterup/jquery.easing.js}"></script>
+	<!-- Slick Slider -->
+	<script th:src="@{/plugins/slick-carousel/slick/slick.min.js}"></script>
+	<!-- Counterup Waypoints -->
+	<script th:src="@{/plugins/counterup/jquery.waypoints.min.js}"></script>
+	<!-- Shuffle Plugin -->
+	<script th:src="@{/plugins/shuffle/shuffle.min.js}"></script>
+	<!-- Counterup -->
+	<script th:src="@{/plugins/counterup/jquery.counterup.min.js}"></script>
+	<!-- Google Map Custom Script -->
+	<script th:src="@{/plugins/google-map/map.js}"></script>
+	<!-- Google Maps API -->
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+	<!-- Main Script -->
+	<script th:src="@{/js/script.js}"></script>
+	<!-- Contact Form Script -->
+	<script th:src="@{/js/contact.js}"></script>
+</body>
+</html>

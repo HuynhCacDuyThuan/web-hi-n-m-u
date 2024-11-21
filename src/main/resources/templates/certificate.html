@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Combined Blood Donation Certificate</title>
+
+<!-- Embedding Roboto font with Vietnamese support directly for web viewing -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&amp;display=swap&amp;subset=vietnamese"
+	rel="stylesheet" />
+<style>
+body {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.container-table {
+	width: 100%;
+	max-width: 20in;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.certificate-cell {
+	width: 50%;
+	padding: 10px;
+	vertical-align: top;
+	display: flex;
+	align-items: stretch;
+}
+
+.certificate {
+	border: 2px solid #b22222;
+	min-height: 8.5in;
+	padding: 20px;
+	box-sizing: border-box;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.header {
+	text-align: center;
+	font-weight: bold;
+	color: #b22222;
+}
+
+.section {
+	margin-top: 20px;
+	flex-grow: 1;
+}
+
+.label {
+	font-weight: bold;
+}
+
+.field {
+	display: inline-block;
+	border-bottom: 1px solid #000;
+	min-width: 100px;
+}
+
+.footer {
+	text-align: center;
+	margin-top: 30px;
+	font-size: 12px;
+}
+
+.stamp {
+	margin-top: 20px;
+	display: inline-block;
+	border: 1px solid #b22222;
+	padding: 10px;
+	text-align: center;
+}
+
+.date-section {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+	<table class="container-table">
+		<tr>
+			<!-- Left Side: Blood Donation Information -->
+			<td class="certificate-cell">
+				<div class="certificate">
+					<div class="header">
+						<h2>HIẾN MÁU CỨU NGƯỜI</h2>
+						<p>MỘT NGHĨA CỬ CAO ĐẸP</p>
+					</div>
+					<div class="section">
+						<p>1. Giấy chứng nhận này được trao cho người hiến máu sau mỗi
+							lần hiến máu tình nguyện.</p>
+						<p>2. Có giá trị để được truyền máu miễn phí bằng số lượng máu
+							đã hiến, khi bản thân người hiến máu có nhu cầu sử dụng máu tại
+							các cơ sở y tế công lập trên toàn quốc.</p>
+						<p>3. Người hiến máu cần xuất trình Giấy chứng nhận này để
+							được truyền máu và sử dụng các dịch vụ y tế thuộc diện miễn phí.</p>
+						<p>4. Cơ sở y tế có trách nhiệm kiểm ký, đóng dấu, ghi rõ số
+							lượng máu đã truyền miễn phí cho người hiến máu vào giấy chứng
+							nhận.</p>
+					</div>
+					<div class="footer">
+						<div class="date-section">
+							<p>CHỨNG NHẬN CỦA CƠ SỞ Y TẾ ĐÃ TRUYỀN MÁU</p>
+							<p th:text="${volunteer.currentDate}"></p>
+							<p>
+								Số lượng: <span th:text="${volunteer.bloodVolume}"></span> ml
+							</p>
+						</div>
+					</div>
+				</div>
+			</td>
+
+			<!-- Right Side: Blood Donation Certificate -->
+			<td class="certificate-cell">
+				<div class="certificate">
+					<div class="header">
+						<h2>GIẤY CHỨNG NHẬN HIẾN MÁU TÌNH NGUYỆN</h2>
+						<p>Cộng hòa xã hội chủ nghĩa Việt Nam</p>
+						<p>Độc lập - Tự do - Hạnh phúc</p>
+					</div>
+					<div class="section">
+						<div>
+							<span class="label">Chứng nhận:</span> <span
+								th:text="${volunteer.fullName}">[Tên người hiến máu]</span>
+						</div>
+						<div>
+							<span class="label">Sinh ngày:</span> <span
+								th:text="${volunteer.birthDate}">[Ngày tháng năm sinh]</span>
+						</div>
+						<div>
+							<span class="label">Số CMND:</span> <span
+								th:text="${volunteer.idNumber}">[Số CMND]</span>
+						</div>
+						<div>
+							<span class="label">Địa chỉ:</span> <span
+								th:text="${volunteer.address}">[Địa chỉ]</span>
+						</div>
+					</div>
+
+					<div class="section">
+						<div>
+							<span class="label">Đã hiến máu tình nguyện tại:</span> <span
+								th:text="${volunteer.location}">[Cơ sở tiếp nhận máu]</span>
+						</div>
+						<div>
+							<span class="label">Số lượng:</span> <span
+								th:text="${volunteer.bloodVolume}"></span> ml
+						</div>
+						<div>
+							<span class="label">Người bệnh luôn ghi ơn tấm lòng nhân
+								ái của:</span> <span  th:text="${volunteer.fullName}">[Tên
+								người hiến máu]</span>
+						</div>
+					</div>
+
+					<div class="section">
+						<div>
+							<span class="label">Ngày:</span> <span
+								th:text="${volunteer.formattedLastDonationDate}">[Ngày
+								chứng nhận]</span>
+						</div>
+					</div>
+
+					<div class="footer">
+						<div class="stamp">
+							<p>Đại diện</p>
+							<p>Ký tên</p>
+							<p>
+								Bệnh viện <span th:text="${volunteer.location}"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

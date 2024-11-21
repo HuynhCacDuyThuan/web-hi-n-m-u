@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminLTE 3 | Dashboard</title>
+<link
+	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
+	rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
+	rel="stylesheet">
+<!-- Include Bootstrap CSS (if not already included) -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+
+
+<!-- AdminLTE Theme -->
+<link th:href="@{/dist/css/adminlte.min.css}" rel="stylesheet">
+
+<!-- Ensure jQuery is loaded before any custom script -->
+<script th:src="@{'https://code.jquery.com/jquery-3.6.0.min.js'}"></script>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<!-- Navbar and Sidebar fragments -->
+		<th:block th:replace="~{admin/fragment/navbar :: navbar}"></th:block>
+		<th:block th:replace="~{admin/fragment/slidebar :: slidebar}"></th:block>
+
+		<!-- Content Wrapper -->
+		<div class="content-wrapper">
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Quản lý hiến máu</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Danh Sách Lượt Hiến Máu</h3>
+								</div>
+
+								<!-- Blood Donations Table -->
+								<div class="card-body table-responsive p-0">
+									<table class="table table-hover text-nowrap">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Người Hiến Máu</th>
+												<th>Ngày Đăng Ký Hiến Máu</th>
+												<th>Ngày Hiến Máu</th>
+												<th>Số Lượng (ml)</th>
+												<th>Nhóm Máu</th>
+												<th>Trạng Thái</th>
+												<th>Thao Tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="donation : ${bloodDonations}"
+												th:if="${donation.id != 0}">
+												<!-- Chỉ hiển thị khi donation.id khác 0 -->
+												<td th:text="${donation.id}">1</td>
+												<td th:text="${donation.name}">Nguyễn Văn A</td>
+												<td th:text="${donation.registeredDate}">2024-10-01</td>
+												<td th:text="${donation.donationDate}">2024-10-01</td>
+												<td th:text="${donation.volume}">350</td>
+												<td th:text="${donation.bloodType}">O+</td>
+												<td><span
+													th:classappend="${donation.status == 'successful' ? 'badge bg-success' : 'badge bg-warning'}"
+													th:text="${donation.status == 'successful' and donation.medicalstatus == 'Không có bệnh.' ? 'Đã Xác Nhận' :
+                    (donation.medicalstatus != 'Không có bệnh.' ? 'Không đủ điều kiện hiến máu' : donation.status)}">
+												</span></td>
+												<td>
+													<!-- View details button --> <a href="#"
+													th:onclick="'fetchDonationDetails(' + ${donation.id} + ')'"
+													class="btn btn-primary btn-sm me-2" data-toggle="modal"
+													data-target="#donationDetailModal"> <i
+														class="fas fa-eye"></i> Xem Chi Tiết
+												</a> <!-- Confirm donation button: only show if donation is not successful and medical status exists -->
+													<a href="javascript:void(0)"
+													th:if="${donation.status != 'successful' and donation.medicalstatus == 'Không có bệnh.'}"
+													th:onclick="'openConfirmationModal(' + ${donation.id} + ')'"
+													class="btn btn-info btn-sm me-2"> <i
+														class="fas fa-edit"></i> Xác nhận
+												</a> <!-- Update medical information button: only show when donation is not successful and medical status is not present or empty -->
+													<a href="javascript:void(0)"
+													th:unless="${donation.status == 'successful' or (donation.medicalstatus != null and !donation.medicalstatus.isEmpty())}"
+													data-bs-toggle="modal" data-bs-target="#confirmationModal1"
+													th:attr="data-donation-id=${donation.id}"
+													class="btn btn-secondary btn-sm me-2"> <i
+														class="fas fa-info-circle"></i> Bệnh án
+												</a> <!-- Delete donation button: always show --> <a href="#"
+													th:onclick="'confirmDelete(' + ${donation.id} + ')'"
+													class="btn btn-danger btn-sm"> <i
+														class="fas fa-trash-alt"></i> Xóa
+												</a>
+												</td>
+											</tr>
+										</tbody>
+
+
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Footer fragment -->
+		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
+	</div>
+	<!-- Modal structure -->
+	<div class="modal fade" id="confirmationModal1" tabindex="-1"
+		aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Cập nhật thông tin
+						bệnh án</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="updateMedicalStatusForm">
+						<div class="mb-3">
+							<label for="medicalCondition" class="form-label">Các loại
+								bệnh</label> <select class="form-control" id="medicalCondition"
+								name="medicalCondition" required>
+								<option value="">Chọn loại bệnh</option>
+								<!-- Lặp qua danh sách conditionServices -->
+								<th:block th:each="condition : ${conditionServices}">
+									<option th:value="${condition.conditionName}"
+										th:text="${condition.conditionName}"></option>
+								</th:block>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Đóng</button>
+					<button type="button" class="btn btn-primary"
+						onclick="submitMedicalStatus()">Cập nhập</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Confirmation Modal -->
+	<div id="confirmationModal" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Xác Nhận</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="errorMessage" class="text-danger"
+						style="display: none; margin-bottom: 10px;"></div>
+					<form id="donationForm">
+						<input type="hidden" id="donationId">
+
+						<div class="form-group">
+							<label for="cccd">CCCD/CMND</label> <input type="text"
+								class="form-control" id="cccd"
+								placeholder="Căn cước công dân hoặc chứng minh nhân dân"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="newVolume">Số lượng máu</label> <input type="number"
+								class="form-control" id="newVolume" placeholder="Số lượng máu"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="newWeight">Cân nặng</label> <input type="number"
+								class="form-control" id="newWeight" placeholder="Cân nặng"
+								required>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Giới Tính</label>
+							<div class="d-flex  mt-2">
+								<div class="form-check form-check-inline">
+									<input type="radio" name="gender" value="male"
+										class="form-check-input" id="male" required> <label
+										class="form-check-label" for="male">Nam</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input type="radio" name="gender" value="female"
+										class="form-check-input" id="female" required> <label
+										class="form-check-label" for="female">Nữ</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="bloodGroup">Nhóm máu</label> <select
+								class="form-control" id="bloodGroup" required>
+								<option value="">Chọn nhóm máu</option>
+								<option value="A">A</option>
+								<option value="B">B</option>
+								<option value="AB">AB</option>
+								<option value="O">O</option>
+							</select>
+						</div>
+						<button type="button" class="btn btn-primary" id="confirmButton">Xác
+							Nhận</button>
+					</form>
+
+					<div id="loadingSpinner" class="text-center" style="display: none;">
+						<div class="spinner-border text-info" role="status">
+							<span class="sr-only">Đang xử lý...</span>
+						</div>
+						<p>Đang tiến hành xác nhận...</p>
+					</div>
+
+					<div id="successMessage" class="text-center text-success"
+						style="display: none;">
+						<i class="fas fa-check-circle" style="font-size: 3rem;"></i>
+						<p class="mt-2">Xác nhận thành công!</p>
+					</div>
+
+					<div id="failureMessage" class="text-center text-danger"
+						style="display: none;">
+						<i class="fas fa-times-circle" style="font-size: 3rem;"></i>
+						<p class="mt-2">Xác nhận thất bại!</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Hủy</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal để hiển thị chi tiết hiến máu -->
+	<div class="modal fade" id="donationDetailModal" tabindex="-1"
+		aria-labelledby="donationDetailModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="donationDetailModalLabel">Chi Tiết
+						Hiến Máu</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Hiển thị thông tin chi tiết -->
+					<p>
+						<strong>Họ Tên:</strong> <span id="donationName"></span>
+					</p>
+					<p>
+						<strong>Ngày Hiến Máu:</strong> <span id="donationDate"></span>
+					</p>
+					<p>
+						<strong>Ngày Đăng Ký:</strong> <span id="registeredDate"></span>
+					</p>
+					<p>
+						<strong>Thể Tích:</strong> <span id="volume"></span> ml
+					</p>
+					<p>
+						<strong>Nhóm Máu:</strong> <span id="bloodType"></span>
+					</p>
+					<p>
+						<strong>Trạng Thái:</strong> <span id="status"></span>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Required scripts -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+	
+	<!-- Include Bootstrap JS and Popper.js -->
+
+	<!-- Your custom script -->
+	<script>
+    document.getElementById('donationDetailModal').addEventListener('hidden.bs.modal', function () {
+        document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
+            backdrop.remove();
+        });
+    });
+</script>
+
+	<script>
+    let currentDonationId = null;
+
+    // Lắng nghe sự kiện khi modal được mở
+    document.getElementById('confirmationModal1').addEventListener('show.bs.modal', function (event) {
+        // Nút đã nhấn để mở modal
+        const button = event.relatedTarget;
+
+        // Lấy donationId từ thuộc tính data-donation-id
+        currentDonationId = button.getAttribute('data-donation-id');
+
+        console.log('Donation ID:', currentDonationId);
+    });
+
+    // Gửi yêu cầu cập nhật trạng thái bệnh án
+    function submitMedicalStatus() {
+    // Lấy giá trị từ dropdown
+    const medicalCondition = document.getElementById('medicalCondition').value;
+    const donationId = currentDonationId; // Lấy donationId từ logic trước đó
+
+    if (!medicalCondition || !donationId) {
+        alert('Vui lòng điền đầy đủ thông tin');
+        return;
+    }
+
+    // Dữ liệu gửi đi
+    const data = new URLSearchParams();
+    data.append('newMedicalStatus', medicalCondition);
+
+    // Gửi yêu cầu POST
+    fetch(`/update/${donationId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data.toString(),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Cập nhật thất bại');
+        }
+        return response.text(); // Nếu server trả về text
+    })
+    .then(data => {
+        console.log('Cập nhật thành công:', data);
+        alert('Cập nhật thành công!');
+        const modal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal1'));
+        modal.hide();
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('Lỗi:', error);
+        alert('Cập nhật thất bại, vui lòng thử lại sau!');
+    });
+}
+</script>
+
+	<script>
+    // Define openConfirmationModal as a global function
+    function openConfirmationModal(donationId) {
+        // Store donationId in a hidden input for later access
+        document.getElementById("donationId").value = donationId;
+
+        // Clear any previous success or failure messages
+        document.getElementById("successMessage").style.display = "none";
+        document.getElementById("failureMessage").style.display = "none";
+        document.getElementById("loadingSpinner").style.display = "none";
+        document.getElementById("errorMessage").style.display = "none";
+
+        // Show the modal
+        $('#confirmationModal').modal('show');
+    }
+    function confirmDelete(donationId) {
+       
+            fetch(`/api/blockchain/delete/${donationId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                   
+                    // Làm mới lại trang hoặc lấy lại danh sách để cập nhật bảng
+                    window.location.reload(); // Làm mới toàn bộ trang
+                } else {
+                    return response.text().then(text => { throw new Error(text) });
+                }
+            })
+            .catch(error => {
+                alert("Xóa không thành công: " + error.message);
+            });
+        
+    }
+    function openModal(donationId) {
+        var modalId = '#modal-' + donationId;  // Tạo ID modal từ donation.id
+        var modalElement = document.querySelector(modalId);  // Tìm modal trong DOM
+
+        if (modalElement) {
+            var modal = new bootstrap.Modal(modalElement);  // Khởi tạo modal của Bootstrap
+            modal.show();  // Mở modal
+        }
+    }
+    
+    function fetchDonationDetails(donationId) {
+        fetch(`/api/statistics/details/${donationId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('donationId').textContent = data.id;
+                    document.getElementById('donationName').textContent = data.name;
+                    document.getElementById('donationDate').textContent = new Date(data.donationDate * 1000).toLocaleDateString();
+                    document.getElementById('registeredDate').textContent = data.registeredDate;
+                    document.getElementById('volume').textContent = data.volume;
+                    document.getElementById('bloodType').textContent = data.bloodType;
+
+                    // Thêm điều kiện cho `status`
+                    if (data.status === 'successful') {
+                        document.getElementById('status').textContent = 'Đã Xác Nhận';
+                        document.getElementById('status').className = 'badge bg-success';
+                    } else if (data.medicalstatus !== 'Không có bệnh.') {
+                        document.getElementById('status').textContent = 'Không đủ điều kiện hiến máu';
+                        document.getElementById('status').className = 'badge bg-danger';
+                    } else {
+                        document.getElementById('status').textContent = 'Đang chờ xử lý';
+                        document.getElementById('status').className = 'badge bg-warning';
+                    }
+
+                    // Mở modal
+                    $('#donationDetailModal').modal('show');
+                } else {
+                    alert("Không tìm thấy chi tiết hiến máu.");
+                }
+            })
+            .catch(error => console.error('Lỗi khi tải chi tiết hiến máu:', error));
+    }
+
+
+
+    $(document).ready(function() {
+        document.getElementById("confirmButton").addEventListener("click", function () {
+            // Gather form data
+            const donationId = document.getElementById("donationId").value;
+            const newVolume = parseInt(document.getElementById("newVolume").value, 10);
+            const bloodGroup = document.getElementById("bloodGroup").value;
+            const cccd = document.getElementById("cccd").value;
+            const weight = parseInt(document.getElementById("newWeight").value, 10);
+            const gender = document.querySelector('input[name="gender"]:checked').value; // Assume you have a gender radio input
+
+            // Clear any existing error messages
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.style.display = "none";
+            errorMessage.innerText = "";
+
+            // Validate weight based on gender
+            if (gender === "female" && weight < 42) {
+                errorMessage.innerText = "Cân nặng của nữ phải từ 42 kg trở lên.";
+                errorMessage.style.display = "block";
+                return;
+            } else if (gender === "male" && weight < 45) {
+                errorMessage.innerText = "Cân nặng của nam phải từ 45 kg trở lên.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Validate blood volume based on weight
+            const maxVolume = Math.floor(weight * 9); // Max volume in ml
+            if (isNaN(newVolume) || newVolume < 250 || newVolume > maxVolume) {
+                errorMessage.innerText = `Số lượng máu phải nằm trong khoảng từ 250 ml đến tối đa ${maxVolume} ml dựa trên cân nặng của bạn.`;
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Show loading spinner and hide success/failure messages
+            document.getElementById("loadingSpinner").style.display = "block";
+            document.getElementById("successMessage").style.display = "none";
+            document.getElementById("failureMessage").style.display = "none";
+
+            // Send AJAX request to the server
+            fetch(`/updateVolume/${donationId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    newVolume: newVolume,
+                    bloodGroup: bloodGroup,
+                    cccd: cccd,
+                    gender: gender
+                })
+            })
+            .then(response => {
+                document.getElementById("loadingSpinner").style.display = "none";
+                if (response.ok) {
+                    document.getElementById("successMessage").style.display = "block";
+                    
+                    // Use setTimeout to delay page reload
+                    setTimeout(() => {
+                        location.reload(); // Reload the page to refresh the table
+                    }, 2000); // Adjust delay as needed
+                } else {
+                    response.text().then(errorMsg => {
+                        document.getElementById("failureMessage").innerText = "Transaction failed: " + errorMsg;
+                        document.getElementById("failureMessage").style.display = "block";
+                    });
+                }
+            })
+            .catch(error => {
+                document.getElementById("loadingSpinner").style.display = "none";
+                document.getElementById("failureMessage").innerText = "Transaction failed: " + error.message;
+                document.getElementById("failureMessage").style.display = "block";
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

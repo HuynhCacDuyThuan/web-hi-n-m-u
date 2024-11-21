@@ -62,13 +62,13 @@
 						<div class="col-lg-3 col-6">
 							<div class="small-box bg-info">
 								<div class="inner">
-									<h3>120</h3>
+									<h3 th:text="${countBloods}">48</h3>
 									<p>Lượt Hiến Máu</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-tint"></i>
 								</div>
-								<a href="/donations" class="small-box-footer">Chi tiết <i
+								<a href="/admin/blood" class="small-box-footer">Chi tiết <i
 									class="fas fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
@@ -83,8 +83,9 @@
 								<div class="icon">
 									<i class="fas fa-users"></i>
 								</div>
-								<a href="/admin/volunteer" class="small-box-footer">Chi tiết <i
-									class="fas fa-arrow-circle-right"></i></a>
+								<a href="/admin/volunteer" class="small-box-footer">Chi tiết
+									<i class="fas fa-arrow-circle-right"></i>
+								</a>
 							</div>
 						</div>
 
@@ -92,14 +93,16 @@
 						<div class="col-lg-3 col-6">
 							<div class="small-box bg-warning">
 								<div class="inner">
-									<h3>48</h3>
+									<h3 th:text="${countBlood}">48</h3>
+
+
 									<p>Hiến máu</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-link"></i>
 								</div>
-								<a href="/admin/blood" class="small-box-footer">Xem giao dịch
-									<i class="fas fa-arrow-circle-right"></i>
+								<a href="/admin/blood" class="small-box-footer">Xem giao
+									dịch <i class="fas fa-arrow-circle-right"></i>
 								</a>
 							</div>
 						</div>
@@ -108,137 +111,182 @@
 						<div class="col-lg-3 col-6">
 							<div class="small-box bg-danger">
 								<div class="inner">
-									<h3>5</h3>
+									<h3 th:text="${countEvent}">48</h3>
 									<p>Sự Kiện</p>
 								</div>
 								<div class="icon">
 									<i class="fas fa-calendar-alt"></i>
 								</div>
-								<a href="/admin/event-blood" class="small-box-footer">Xem sự kiện <i
-									class="fas fa-arrow-circle-right"></i></a>
+								<a href="/admin/event-blood" class="small-box-footer">Xem sự
+									kiện <i class="fas fa-arrow-circle-right"></i>
+								</a>
 							</div>
 						</div>
 					</div>
 
 					<section class="content">
-    <div class="container-fluid">
-        <!-- Thống kê hiến máu -->
-       
-        <!-- /.Thống kê hiến máu -->
+						<div class="container-fluid">
+							<!-- Thống kê hiến máu -->
 
-        <!-- Biểu đồ hiến máu -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Biểu đồ số lần hiến máu theo tháng</h3>
-                    </div>
-                    <div class="card-body" style="height: 300px;">
-                        <canvas id="bloodDonationsChart" style="max-width: 100%; height: 300px;"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Biểu đồ số người hiến máu theo nhóm máu</h3>
-                    </div>
-                    <div class="card-body" style="height: 300px;">
-                        <canvas id="bloodGroupChart" style="max-width: 100%; height: 300px;"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.Biểu đồ hiến máu -->
+							<!-- /.Thống kê hiến máu -->
 
-        <!-- Thống kê hiến máu theo tỉnh thành -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Thống kê số lượng hiến máu theo tỉnh thành</h3>
-                    </div>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Tỉnh thành</th>
-                                    <th>Số người hiến máu</th>
-                                    <th>Số lần hiến máu</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Hà Nội</td>
-                                    <td>40</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>TP. Hồ Chí Minh</td>
-                                    <td>50</td>
-                                    <td>70</td>
-                                </tr>
-                                <tr>
-                                    <td>Đà Nẵng</td>
-                                    <td>30</td>
-                                    <td>45</td>
-                                </tr>
-                                <tr>
-                                    <td>Huế</td>
-                                    <td>20</td>
-                                    <td>30</td>
-                                </tr>
-                                <!-- Thêm các tỉnh thành khác -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+							<!-- Biểu đồ hiến máu -->
+							<div class="row">
+								<div class="col-md-6">
+									<div class="card">
+										<div class="card-header">
+											<h3 class="card-title">Biểu đồ số lần hiến máu theo
+												tháng</h3>
+										</div>
+										<div class="card-body" style="height: 300px;">
+											<canvas id="bloodDonationsChart"
+												style="max-width: 100%; height: 300px;"></canvas>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="card">
+										<div class="card-header">
+											<h3 class="card-title">Biểu đồ số người hiến máu theo
+												nhóm máu</h3>
+										</div>
+										<div class="card-body" style="height: 300px;">
+											<canvas id="bloodGroupChart"
+												style="max-width: 100%; height: 300px;"></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /.Biểu đồ hiến máu -->
+
+							<!-- Thống kê hiến máu theo tỉnh thành -->
+							<div class="row mt-4">
+								<div class="col-12">
+									<div class="card">
+										<div class="card-header">
+											<h3 class="card-title">Thống kê số lượng hiến máu theo
+												tỉnh thành</h3>
+										</div>
+										<div class="card-body table-responsive p-0">
+											<table class="table table-hover text-nowrap">
+												<thead>
+													<tr>
+														<th>Tỉnh thành</th>
+														<th>Số người hiến máu</th>
+														<th>Số lần hiến máu</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="statistic : ${statistics}">
+														<td th:text="${statistic.cityName}"></td>
+														<td th:text="${statistic.numberOfDonors}"></td>
+														<td th:text="${statistic.numberOfDonations}"></td>
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
 				</div>
-			</section>
+
+
+				<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
 		</div>
 
-
-		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
-
-	</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script>
     document.addEventListener('DOMContentLoaded', function() {
         // Biểu đồ số lần hiến máu theo tháng
-        var ctx1 = document.getElementById('bloodDonationsChart').getContext('2d');
-        var bloodDonationsChart = new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-                datasets: [{
-                    label: 'Lần hiến máu trong tháng',
-                    data: [10, 15, 20, 25, 30, 40, 35, 50, 45, 60, 55, 70],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+        // Hàm để gọi API và cập nhật biểu đồ
+function updateBloodDonationsChart() {
+    fetch('http://localhost:8080/api/statistics/monthly-donations')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            return response.json();
+        })
+        .then(data => {
+            // Dữ liệu từ API được nhận dưới dạng danh sách quyên góp theo tháng
+            var donationData = data.monthlyDonations;
+
+            // Cập nhật dữ liệu biểu đồ
+            bloodDonationsChart.data.datasets[0].data = donationData;
+            bloodDonationsChart.update(); // Cập nhật biểu đồ để hiển thị dữ liệu mới
+        })
+        .catch(error => {
+            console.error('Error fetching monthly donation statistics:', error);
         });
+}
+
+// Khởi tạo biểu đồ với dữ liệu ban đầu (có thể để trống hoặc khởi tạo với giá trị giả)
+var ctx1 = document.getElementById('bloodDonationsChart').getContext('2d');
+var bloodDonationsChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+        datasets: [{
+            label: 'Lần hiến máu trong tháng',
+            data: [], // Khởi tạo dữ liệu trống, sẽ được cập nhật từ API
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Gọi hàm để cập nhật biểu đồ ngay khi trang được tải
+updateBloodDonationsChart();
+
 
         // Biểu đồ số người hiến máu theo nhóm máu
+     // Hàm để gọi API và cập nhật biểu đồ
+        function updateBloodGroupChart() {
+            fetch('http://localhost:8080/api/statistics/blood-groups')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Lấy dữ liệu từ API và cập nhật biểu đồ
+                    var bloodGroupData = [
+                        data.bloodGroupA,
+                        data.bloodGroupB,
+                        data.bloodGroupAB,
+                        data.bloodGroupO
+                    ];
+
+                    // Cập nhật dữ liệu cho biểu đồ
+                    bloodGroupChart.data.datasets[0].data = bloodGroupData;
+                    bloodGroupChart.update(); // Cập nhật biểu đồ để hiển thị dữ liệu mới
+                })
+                .catch(error => {
+                    console.error('Error fetching blood group statistics:', error);
+                });
+        }
+
+        // Khởi tạo biểu đồ
         var ctx2 = document.getElementById('bloodGroupChart').getContext('2d');
         var bloodGroupChart = new Chart(ctx2, {
             type: 'pie',
             data: {
                 labels: ['Nhóm A', 'Nhóm B', 'Nhóm AB', 'Nhóm O'],
                 datasets: [{
-                    data: [30, 25, 15, 50],
+                    data: [0, 0, 0, 0], // Khởi tạo dữ liệu rỗng, sẽ được cập nhật từ API
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.7)',
                         'rgba(54, 162, 235, 0.7)',
@@ -259,14 +307,17 @@
                 maintainAspectRatio: false
             }
         });
+
+        // Gọi hàm để cập nhật biểu đồ ngay khi trang được tải
+        updateBloodGroupChart();
     });
 </script>
-	<!-- jQuery -->
-	<!-- jQuery -->
-	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
-	<!-- Bootstrap 4 -->
-	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<!-- AdminLTE App -->
-	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+		<!-- jQuery -->
+		<!-- jQuery -->
+		<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+		<!-- Bootstrap 4 -->
+		<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<!-- AdminLTE App -->
+		<script th:src="@{/dist/js/adminlte.min.js}"></script>
 </body>
 </html>

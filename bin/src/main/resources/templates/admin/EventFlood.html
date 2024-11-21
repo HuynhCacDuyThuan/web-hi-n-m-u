@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminLTE 3 | Dashboard</title>
+<link
+	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
+	rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
+	rel="stylesheet">
+
+<!-- AdminLTE Theme -->
+<link th:href="@{/dist/css/adminlte.min.css}" rel="stylesheet">
+
+<script th:src="@{'https://code.jquery.com/jquery-3.6.0.min.js'}"></script>
+<style type="text/css">
+.small-box {
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal.show {
+	display: block !important;
+}
+/* Căn giữa modal theo chiều dọc và ngang */
+.modal-dialog-centered {
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+}
+
+/* Đảm bảo modal không quá cao */
+.modal-content {
+	margin: auto;
+	max-height: calc(100vh - 3.5rem); /* Giới hạn chiều cao modal */
+	overflow-y: auto;
+}
+
+.small-box .icon {
+	font-size: 60px;
+	opacity: 0.7;
+}
+
+.card {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+	background-color: #f4f5f7;
+}
+
+.service-block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease-in-out;
+	height: 100%;
+	padding-bottom: 20px;
+}
+
+.service-block:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.service-block img {
+	width: 100%;
+	max-width: 250px; /* Max width for better scaling */
+	height: 200px;
+	object-fit: cover;
+	display: block;
+	margin: 0 auto;
+}
+
+.content h4 {
+	font-weight: 600;
+	color: #343a40;
+}
+
+.content p {
+	font-size: 14px;
+	color: #6c757d;
+}
+
+.btn-primary {
+	background-color: #e3342f;
+	border: none;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+	background-color: #d02a1d;
+}
+
+/* Ensure spacing between cards is responsive */
+.row.g-4>div {
+	display: flex;
+}
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<!-- Navbar -->
+
+		<th:block th:replace="~{admin/fragment/navbar :: navbar}"></th:block>
+		<th:block th:replace="~{admin/fragment/slidebar :: slidebar}"></th:block>
+
+		<!-- Content Wrapper -->
+		<div class="content-wrapper">
+			<div class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1 class="m-0">Sự kiện hiến máu</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section class="section ">
+				<div class="container-fluid">
+					<div class="row mb-4">
+						<div class="col-lg-8 mx-auto text-center">
+							<h2 class="fw-bold mb-3">Các Sự Kiện Hiến Máu</h2>
+							<p class="text-muted">Tham gia hiến máu nhân đạo để cứu người
+								và góp phần vào cộng đồng. Dưới đây là các sự kiện đang diễn ra.
+							</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-lg-12 text-right">
+							<button class="btn btn-success" onclick="openAddEventModal()">+
+								Thêm Sự Kiện</button>
+						</div>
+					</div>
+					<div class="row g-4">
+						<!-- Card 1 -->
+						<div class="col-lg-3 col-md-6">
+							<div class="service-block">
+								<img
+									src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
+									alt="Hiến Máu" class="img-fluid">
+								<div class="content p-4">
+									<h4 class="mb-2">Hiến máu - Trung Tâm Hiến Máu Nhân Đạo
+										Tp.HCM</h4>
+									<p>
+										<i class="fas fa-map-marker-alt"></i> 24 Nguyễn Thị Diệu,
+										Phường Võ Thị Sáu, Quận 3, Tp Hồ Chí Minh
+									</p>
+									<p>
+										<i class="fas fa-calendar-alt"></i> Thời gian: 10/10/2024 -
+										07:30 đến 16:00
+									</p>
+									<button class="btn btn-primary w-100 mt-2">Xem chi
+										tiết</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Card 2 -->
+						<div class="col-lg-3 col-md-6">
+							<div class="service-block">
+								<img
+									src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
+									alt="Hiến Máu" class="img-fluid">
+								<div class="content p-4">
+									<h4 class="mb-2">Hiến máu - Trung Tâm Hiến Máu Nhân Đạo
+										Tp.HCM</h4>
+									<p>
+										<i class="fas fa-map-marker-alt"></i> 24 Nguyễn Thị Diệu,
+										Phường Võ Thị Sáu, Quận 3, Tp Hồ Chí Minh
+									</p>
+									<p>
+										<i class="fas fa-calendar-alt"></i> Thời gian: 10/10/2024 -
+										07:30 đến 16:00
+									</p>
+									<button class="btn btn-primary w-100 mt-2">Xem chi
+										tiết</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Card 3 -->
+						<div class="col-lg-3 col-md-6">
+							<div class="service-block">
+								<img
+									src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
+									alt="Hiến Máu" class="img-fluid">
+								<div class="content p-4">
+									<h4 class="mb-2">Hiến máu - Trung Tâm Hiến Máu Nhân Đạo
+										Tp.HCM</h4>
+									<p>
+										<i class="fas fa-map-marker-alt"></i> 24 Nguyễn Thị Diệu,
+										Phường Võ Thị Sáu, Quận 3, Tp Hồ Chí Minh
+									</p>
+									<p>
+										<i class="fas fa-calendar-alt"></i> Thời gian: 10/10/2024 -
+										07:30 đến 16:00
+									</p>
+									<button class="btn btn-primary w-100 mt-2">Xem chi
+										tiết</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Card 4 -->
+						<div class="col-lg-3 col-md-6">
+							<div class="service-block">
+								<img
+									src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
+									alt="Hiến Máu" class="img-fluid">
+								<div class="content p-4">
+									<h4 class="mb-2">Hiến máu - Trung Tâm Hiến Máu Nhân Đạo
+										Tp.HCM</h4>
+									<p>
+										<i class="fas fa-map-marker-alt"></i> 24 Nguyễn Thị Diệu,
+										Phường Võ Thị Sáu, Quận 3, Tp Hồ Chí Minh
+									</p>
+									<p>
+										<i class="fas fa-calendar-alt"></i> Thời gian: 10/10/2024 -
+										07:30 đến 16:00
+									</p>
+									<button class="btn btn-primary w-100 mt-2">Xem chi
+										tiết</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+
+		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
+
+	</div>
+
+
+	<!-- Modal Thêm Sự Kiện -->
+	<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog"
+		aria-labelledby="addEventModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addEventModalLabel">Thêm Sự Kiện
+						Hiến Máu</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="eventName">Tên Sự Kiện</label> <input type="text"
+								class="form-control" id="eventName"
+								placeholder="Nhập tên sự kiện">
+						</div>
+						<div class="form-group">
+							<label for="eventLocation">Địa Điểm</label> <input type="text"
+								class="form-control" id="eventLocation"
+								placeholder="Nhập địa điểm">
+						</div>
+						<div class="form-group">
+							<label for="eventDate">Ngày và Giờ</label> <input
+								type="datetime-local" class="form-control" id="eventDate"
+								onchange="formatDateTime()">
+						</div>
+
+						<!-- Nơi hiển thị thời gian đã định dạng -->
+						<p id="formattedDateTime"></p>
+						<div class="form-group">
+							<label for="eventImage">Hình ảnh</label> <input type="file"
+								class="form-control" id="eventImage" accept="image/*">
+						</div>
+
+						<button type="submit" class="btn btn-primary">Lưu</button>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function openAddEventModal() {
+			$('#addEventModal').modal('show');
+		}
+		function formatDateTime() {
+			const eventDateInput = document.getElementById("eventDate").value;
+
+			if (eventDateInput) {
+				const date = new Date(eventDateInput);
+
+				const day = date.getDate().toString().padStart(2, '0');
+				const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+				const year = date.getFullYear();
+
+				const hours = date.getHours().toString().padStart(2, '0');
+				const minutes = date.getMinutes().toString().padStart(2, '0');
+
+				const formattedTime = `Thời gian: ${day}/${month}/${year} - ${hours}:${minutes} đến 16:00`;
+
+				document.getElementById("formattedDateTime").innerHTML = formattedTime;
+			}
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Bootstrap 4 -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+	<!-- jQuery -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

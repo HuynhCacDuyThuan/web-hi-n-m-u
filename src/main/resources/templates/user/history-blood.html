@@ -29,15 +29,17 @@
 	object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
 	width: 100%; /* Chiều rộng 100% */
 }
+
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 .pink {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
 
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 </style>
 </head>
@@ -62,27 +64,33 @@ a.backtop.js-scroll-trigger.reveal {
 				</tr>
 			</thead>
 			<tbody>
-				<!-- Thông tin lịch sử hiến máu -->
-				<tr>
-					<td>10/10/2024</td>
-					<td>Trung Tâm Hiến Máu Nhân Đạo Tp.HCM</td>
-					<td>07:30 - 16:00</td>
-					<td><span class="badge badge-success">Đã Hiến</span></td>
+				<!-- Iterate over bloodDonationHistories using Thymeleaf -->
+				<tr th:each="history : ${bloodDonationHistories}">
+					<!-- Check if registrationDate is not null before formatting -->
+					<td
+						th:text="${#temporals.format(history.registrationDate, 'dd/MM/yyyy')}">10/10/2024</td>
+
+
+					<td th:text="${history.location}">Trung Tâm Hiến Máu Nhân Đạo
+						Tp.HCM</td>
+
+					<!-- Concatenate startTime and endTime -->
+					<td th:text="${history.startTime} + ' - ' + ${history.endTime}">07:30
+						- 16:00</td>
+
+					<td><span
+						th:if="${history.medicalstatus == 'Không có bệnh.' or (history.medicalstatus != null and history.medicalstatus.isEmpty())}"
+						th:text="${history.status}"
+						th:classappend="${history.status == 'Pending' ? 'badge badge-warning' : 'badge badge-success'}">
+					</span> <span
+						th:if="${history.medicalstatus != 'Không có bệnh.' and !(history.medicalstatus != null and history.medicalstatus.isEmpty())}">
+							Không đủ điều kiện </span></td>
+
 				</tr>
-				<tr>
-					<td>20/08/2024</td>
-					<td>Bệnh viện Chợ Rẫy</td>
-					<td>08:00 - 12:00</td>
-					<td><span class="badge badge-warning">Đã Đăng Ký</span></td>
-				</tr>
-				<tr>
-					<td>05/06/2024</td>
-					<td>Bệnh viện Nhân dân 115</td>
-					<td>07:30 - 16:00</td>
-					<td><span class="badge badge-success">Đã Hiến</span></td>
-				</tr>
+
 			</tbody>
 		</table>
+
 	</div>
 
 

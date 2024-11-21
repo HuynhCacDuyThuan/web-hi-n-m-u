@@ -24,13 +24,15 @@
 <link rel="stylesheet" href="css/style.css">
 <style type="text/css">
 .pink {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 </style>
 </head>
@@ -92,19 +94,25 @@ a.backtop.js-scroll-trigger.reveal {
 		</div>
 	</section>
 
-	<section class="contact-form-wrap section"></section>
+	<section class="contact-form-wrap section pb-0">
+		<div class="container">
+			<div class="">
+				<div class="google-map ">
 
 
-	<div class="google-map ">
+
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.647006429375!2d108.16550619275937!3d16.047164814854924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1728009228772!5m2!1svi!2s"
+						width="100%" height="450" style="border: 0;" allowfullscreen=""
+						loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+				</div>
+			</div>
+		</div>
+	</section>
 
 
 
-		<iframe
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d61349.647006429375!2d108.16550619275937!3d16.047164814854924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219c792252a13%3A0xfc14e3a044436487!2zxJDDoCBO4bq1bmcsIEjhuqNpIENow6J1LCDEkMOgIE7hurVuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1728009228772!5m2!1svi!2s"
-			width="100%" height="450" style="border: 0;" allowfullscreen=""
-			loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-	</div>
 	<!-- footer Start -->
 	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
 

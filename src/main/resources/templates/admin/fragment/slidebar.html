@@ -76,7 +76,7 @@
 								<p>Quản lý Hiến máu</p>
 						</a></li>
 
-					
+
 						<!-- Người dùng -->
 						<li class="nav-item"><a href="/admin/users" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
@@ -95,8 +95,8 @@
 						<li class="nav-item"><a href="/admin/notifications"
 							class="nav-link"> <i class="nav-icon fas fa-bell"></i>
 								<p>
-									Quản lý Thông báo <span
-										class="badge badge-warning navbar-badge">3</span>
+									Quản lý Thông báo <span id="notificationCount"
+										class="badge badge-warning navbar-badge">0</span>
 									<!-- Số lượng thông báo -->
 								</p>
 						</a></li>
@@ -115,6 +115,68 @@
 				</nav>
 			</div>
 		</aside>
+
+		<script>
+    // Initialize WebSocket connection and setup reconnection logic
+    let socket;
+    let notificationCount = 0;
+
+    function connectWebSocket() {
+        socket = new WebSocket("ws://localhost:8080/ws/notifications");
+
+        // Update notification count in the HTML
+        function updateNotificationCount() {
+            const notificationElement = document.getElementById("notificationCount");
+            if (notificationElement) {
+                notificationElement.textContent = notificationCount;
+            } else {
+                console.error("Notification count element not found.");
+            }
+        }
+
+        // WebSocket connection opened
+        socket.onopen = () => {
+            console.log("Connected to WebSocket");
+        };
+
+        // WebSocket message received
+        socket.onmessage = (event) => {
+            try {
+                // Parse the received message
+                const notification = JSON.parse(event.data);
+                
+                // Check if the notification includes a count or increment as needed
+                if (notification.newCount !== undefined) {
+                    notificationCount = notification.newCount; // Use server-provided count
+                } else {
+                    notificationCount += 1; // Default to incrementing by 1
+                }
+
+                // Update the displayed count
+                updateNotificationCount();
+
+                console.log("New Notification:", notification);
+                console.log("Updated Notification Count:", notificationCount);
+            } catch (e) {
+                console.error("Error processing WebSocket message:", e);
+            }
+        };
+
+        // WebSocket connection error
+        socket.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        };
+
+        // WebSocket connection closed
+        socket.onclose = () => {
+            console.log("Disconnected from WebSocket. Attempting to reconnect...");
+            setTimeout(connectWebSocket, 3000); // Attempt reconnection after 3 seconds
+        };
+    }
+
+    // Start the WebSocket connection
+    connectWebSocket();
+</script>
 
 
 		<!-- jQuery -->

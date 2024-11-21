@@ -28,155 +28,102 @@
 	object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
 	width: 100%; /* Chiều rộng 100% */
 }
+
+.service-block img {
+	object-fit: contain;
+	padding: 0 6px 0px 1px;
+	width: 100%;
+	margin-top: -60px;
+	border: 5px solid #fff;
+}
+
 .pink {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
+
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 </style>
 </head>
 
 <body id="top">
 
-		<th:block th:replace="~{user/fragment/header :: header}"></th:block>
+	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
 
-	<section class="page-title bg-1 pink">
-		<div class=""></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="block text-center">
-
-						<h1 class="text-capitalize mb-5 text-lg">Hiến máu</h1>
-
-						<!-- <ul class="list-inline breadcumb-nav">
-            <li class="list-inline-item"><a href="index.html" class="text-white">Home</a></li>
-            <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="#" class="text-white-50">Our services</a></li>
-          </ul> -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
+	
 
 	<section class="section service-2">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-md-6 col-sm-6">
+				<div class="col-lg-4 col-md-6 col-sm-6" th:each="event : ${events}">
 					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
+						<img th:src="@{'/loadImage?imageName=' + ${event.image}}"
+							alt="Logo" class="img-fluid news-image">
 						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
-						</div>
-					</div>
-				</div>
+							<h4 class="mt-4 mb-2 title-color" th:text="${event.eventName}">Tên
+								Sự Kiện</h4>
+							<p class="mb-2" th:text="'Địa chỉ: ' + ${event.location}">Địa
+								chỉ</p>
+							<p class="mb-1"
+								th:text="'Thời gian hoạt động: ' + ${event.eventDate} + ' - Từ ' + ${event.startTime} + ' đến ' + ${event.endTime}">
+								Thời gian hoạt động</p>
 
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
-						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
-						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
-						</div>
-					</div>
-				</div>
+							<!-- Schedule Appointment Button -->
+							<button th:if="${isLoggedIn}"
+								class="btn btn-primary schedule-button"
+								th:data-event-id="${event.id}">Đặt lịch</button>
 
 
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
-						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
-						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 col-sm-6">
-					<div class="service-block mb-5">
-						<img
-							src="https://static.giotmauvang.org.vn/ihpstatic/LOGO/CTD.png"
-							alt="" class="img-fluid news-image">
-						<div class="content">
-							<h4 class="mt-4 mb-2 title-color">Hiến máu - Trung Tâm Hiến
-								Máu Nhân Đạo Tp.HCM</h4>
-							<p class="mb-2">Địa chỉ: 24 NGUYỄN THỊ DIỆU, Phường Võ Thị
-								Sáu, Quận 3, Tp Hồ Chí Minh</p>
-							<p class="mb-1">Thời gian hoạt động: 10/10/2024 - Từ 07:30
-								đến 16:00</p>
-							<button class="btn btn-primary">Đặt lịch</button>
+							<!-- Show Login Button if Not Logged In -->
+							<a href="/login" th:unless="${isLoggedIn}">
+								<button class="btn btn-primary">Đặt lịch</button>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			<!-- Pagination Controls -->
+			<nav aria-label="Page navigation" class="mt-4">
+				<ul class="pagination justify-content-center">
+					<!-- Previous Page Button -->
+					<li class="page-item"
+						th:classappend="${currentPage == 0} ? 'disabled'"><a
+						class="page-link"
+						th:href="@{'/service?page=' + ${currentPage - 1}}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+
+					<!-- Page Number Buttons -->
+					<li class="page-item"
+						th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+						th:classappend="${i == currentPage} ? 'active'"><a
+						class="page-link" th:href="@{'/service?page=' + ${i}}"
+						th:text="${i + 1}">1</a></li>
+
+					<!-- Next Page Button -->
+					<li class="page-item"
+						th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+						<a class="page-link"
+						th:href="@{'/service?page=' + ${currentPage + 1}}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</section>
 
 
+
 	<!-- footer Start -->
-<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
+	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
 
 
 	<!-- 
@@ -204,6 +151,40 @@ a.backtop.js-scroll-trigger.reveal {
 
 	<script src="js/script.js"></script>
 	<script src="js/contact.js"></script>
+	<script>
+    // Function remains the same
+    async function scheduleAppointment(eventId) {
+        try {
+            const response = await fetch(`/api/blockchain/addBloodDonation/${eventId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
 
+            if (response.ok) {
+                const transactionHash = await response.text();
+                alert("Appointment scheduled successfully. Transaction Hash: " + transactionHash);
+            } else {
+                const errorMessage = await response.text();
+                alert("Error scheduling appointment: " + errorMessage);
+            }
+        } catch (error) {
+            console.error("Error details:", error);
+            alert("An unexpected error occurred.");
+        }
+    }
+
+    // Event listener to bind the function to buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.schedule-button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const eventId = button.getAttribute('data-event-id');
+                scheduleAppointment(eventId);
+            });
+        });
+    });
+</script>
 </body>
 </html>

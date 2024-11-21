@@ -7,6 +7,10 @@
 <link
 	th:href="@{'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'}"
 	rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Font Awesome Icons -->
 <link th:href="@{/plugins/fontawesome-free/css/all.min.css}"
@@ -77,36 +81,30 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Nguyễn Văn A</td>
-												<td>nguyenvana@example.com</td>
-												<td>Admin</td>
-												<td><span class="badge bg-success">Hoạt Động</span></td>
-												<td><a href="/users/lock/1"
-													class="btn btn-warning btn-sm"> <i class="fas fa-lock"></i>
-														Khóa
-												</a> <a href="/users/view/1" class="btn btn-primary btn-sm">
-														<i class="fas fa-eye"></i> Xem Chi Tiết
-												</a></td>
+											<!-- Thymeleaf loop to iterate over users and display each user's information -->
+											<tr th:each="user : ${users}">
+												<td th:text="${user.id}">1</td>
+												<td th:text="${user.username}">Nguyễn Văn A</td>
+												<td th:text="${user.email}">nguyenvana@example.com</td>
+												<td th:text="${user.role}">Admin</td>
+												<td><span
+													th:classappend="${user.locked ? 'badge bg-danger' : 'badge bg-success'}"
+													th:text="${user.locked ? 'Tài khoản khóa' : 'Hoạt Động'}">
+														Hoạt Động </span></td>
+												<td><a>
+														<button class="btn btn-warning btn-sm"
+															th:onclick="'toggleUserLockStatus(' + ${user.id_user} + ', this)'">
+															<i class="fas fa-lock"></i> <span
+																th:text="${user.locked ? 'Mở Khóa' : 'Khóa'}"></span>
+														</button>
+												</a> <a href="#" th:attr="data-email=${user.email}"
+													onclick="getUserDetailsFromData(this)"
+													class="btn btn-primary btn-sm" data-bs-toggle="modal"
+													data-bs-target="#userDetailsModal"> Xem chi tiết </a></td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td>Trần Thị B</td>
-												<td>tranthib@example.com</td>
-												<td>Người Dùng</td>
-												<td><span class="badge bg-warning">Tài khoản
-														khoá</span></td>
-												<td><a href="/users/lock/1"
-													class="btn btn-warning btn-sm"> <i class="fas fa-lock"></i>
-														Khóa
-												</a> <a href="/users/view/1" class="btn btn-primary btn-sm">
-														<i class="fas fa-eye"></i> Xem Chi Tiết
-												</a> </td>
-											</tr>
-											<!-- Thêm người dùng khác -->
 										</tbody>
 									</table>
+
 								</div>
 								<!-- /.card-body -->
 							</div>
@@ -118,10 +116,128 @@
 
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="userDetailsModal" tabindex="-1"
+			aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="userDetailsModalLabel">Thông tin
+							chi tiết người dùng</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>
+							<strong>ID:</strong> <span id="userId"></span>
+						</p>
+						<p>
+							<strong>Tên người dùng:</strong> <span id="userName"></span>
+						</p>
+						<p>
+							<strong>Email:</strong> <span id="userEmail"></span>
+						</p>
+						<p>
+							<strong>CCCD:</strong> <span id="userCCCD"></span>
+						</p>
+						<p>
+							<strong>Giới tính:</strong> <span id="userGender"></span>
+						</p>
+						<p>
+							<strong>Ngày sinh:</strong> <span id="userDOB"></span>
+						</p>
+						<p>
+							<strong>Nhóm máu:</strong> <span id="userBloodGroup"></span>
+						</p>
+						<p>
+							<strong>Địa chỉ nhà:</strong> <span id="userAddress"></span>
+						</p>
+						<p>
+							<strong>Vai trò:</strong> <span id="userRole"></span>
+						</p>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 
 		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
 
 	</div>
+	<!-- Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+    function toggleUserLockStatus(userId, buttonElement) {
+        fetch(`/api/users/lock/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Parse the current lock status from the button's text content
+            const lockStatusText = buttonElement.querySelector("span").textContent;
+
+            // Update button text and badge based on the new lock status
+            if (lockStatusText === "Khóa") {
+                buttonElement.querySelector("span").textContent = "Mở Khóa";
+                buttonElement.closest("tr").querySelector(".badge").textContent = "Tài khoản khóa";
+                buttonElement.closest("tr").querySelector(".badge").classList.replace("bg-success", "bg-danger");
+            } else {
+                buttonElement.querySelector("span").textContent = "Khóa";
+                buttonElement.closest("tr").querySelector(".badge").textContent = "Hoạt Động";
+                buttonElement.closest("tr").querySelector(".badge").classList.replace("bg-danger", "bg-success");
+            }
+         
+        })
+        .catch(error => {
+            console.error("Error updating lock status:", error);
+            alert("Failed to toggle lock status");
+        });
+    }
+   
+  
+    function getUserDetailsFromData(element) {
+        const email = element.getAttribute("data-email");
+        console.log(email);
+        getUserDetails(email);
+    }
+
+    function getUserDetails(email) {
+        fetch(`/api/blockchain/details/${email}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Không tìm thấy thông tin người dùng');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('userId').textContent = data.id;
+                document.getElementById('userName').textContent = data.username;
+                document.getElementById('userEmail').textContent = data.email;
+                document.getElementById('userCCCD').textContent = data.cccd;
+                document.getElementById('userGender').textContent = data.gender;
+                document.getElementById('userDOB').textContent = data.dayOfBirth;
+                document.getElementById('userBloodGroup').textContent = data.bloodGroup;
+                document.getElementById('userAddress').textContent = data.homeAddress;
+                document.getElementById('userRole').textContent = data.role;
+               
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+    }
+
+</script>
 
 	<!-- jQuery -->
 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>

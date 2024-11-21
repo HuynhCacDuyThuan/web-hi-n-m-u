@@ -7,6 +7,8 @@
 <meta name="author" content="themefisher.com">
 
 <title>Novena- Health & Care Medical template</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <!-- Favicon -->
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -23,16 +25,62 @@
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="css/style.css">
 <style type="text/css">
+.form-outline {
+	position: relative; /* Enable positioning for the icon */
+}
+
+.alert-success {
+	color: #155724;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+.alert-danger {
+	color: #721c24;
+	background-color: #ea3b7b;
+	border-color: #ea3b7b;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 5px;
+}
+
+.custom-button {
+	background-color: #e6b800 !important;
+	/* Customize the background color */
+	padding: 12px 24px !important; /* Adjust padding for larger size */
+	border-radius: 5px !important; /* Optional: round the corners */
+	font-size: 18px; /* Adjust font size */
+}
+
+.custom-button:hover {
+	background-color: #e6b800; /* Darker shade on hover */
+}
+
+.btn {
+	background: transparent; /* Transparent background */
+	border: none; /* No border */
+	cursor: pointer; /* Change cursor to pointer */
+	outline: none; /* Remove outline */
+	padding: 0; /* Remove padding */
+}
+
+.form-control {
+	padding-right: 40px; /* Make space for the button inside the input */
+}
+
 .pink {
-	background: pink !important;
+	background: #ea3b7b  !important;
 }
 
 a.backtop.js-scroll-trigger.reveal {
-	background: pink !important;
+	background: #ea3b7b !important;
 }
 
 .pink-cl {
-	color: pink !important;
+	color: #ea3b7b !important;
 }
 
 .overlay:before {
@@ -45,7 +93,7 @@ a.backtop.js-scroll-trigger.reveal {
 	width: 100%;
 	height: 100%;
 	opacity: 0.9;
-	background: pink !important;
+	background: #ea3b7b !important;
 }
 </style>
 </head>
@@ -56,121 +104,133 @@ a.backtop.js-scroll-trigger.reveal {
 	<th:block th:replace="~{user/fragment/header :: header}"></th:block>
 
 
-
 	<section class="page-title bg-1 pink">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
 				<section class="h-100 bg-dark">
-					<div class="container py-5 h-100">
+					<div class="container h-100">
 						<div
 							class="row d-flex justify-content-center align-items-center h-100">
 							<div class="col">
 								<div class="card card-registration my-4">
 									<div class="row g-0">
+										<!-- Image Column -->
 										<div
 											class="col-xl-6 d-none d-xl-block d-flex justify-content-center align-items-center"
 											style="height: 100%;">
 											<img src="images/img-1.jpg" alt="Sample photo"
 												class="img-fluid"
-												style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+												style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;">
 										</div>
-
+										<!-- Form Column -->
 										<div class="col-xl-6">
 											<div class="card-body p-md-5 text-black">
 												<h3 class="mb-5 text-uppercase">Đăng kí</h3>
 
-												<div class="row">
-													<div class="col-md-12 mb-4">
-														<div data-mdb-input-init class="form-outline">
-															<input type="text" id="form3Example1m"
-																class="form-control form-control-lg" /> <label
-																class="form-label" for="form3Example1m">Họ tên</label>
+												<form id="registerForm">
+
+													<div id="responseMessage" class="mb-3"></div>
+													<!-- Full Name -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="fullName">Họ và tên</label>
+														<input type="text" id="fullName" name="fullName"
+															class="form-control form-control-lg" required>
+													</div>
+
+													<!-- Address -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="address">Địa chỉ</label> <input
+															type="text" id="address" name="address"
+															class="form-control form-control-lg" required>
+													</div>
+
+													<!-- Email -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="email">Email</label> <input
+															type="email" id="email" name="email"
+															class="form-control form-control-lg"
+															placeholder="example@example.com" autocomplete="email"
+															required>
+													</div>
+
+													<!-- Password -->
+													<div class="form-outline mb-1" style="position: relative;">
+														<label class="form-label" for="password">Password</label>
+														<input type="password" id="password" name="password"
+															class="form-control form-control-lg" required>
+														<button type="button" id="togglePassword"
+															onclick="togglePasswordVisibility()"
+															style="position: absolute; right: 10px; top: 42px; background: transparent; border: none; cursor: pointer;">
+															<i class="fas fa-eye" id="eyeIcon"></i>
+														</button>
+													</div>
+
+													<div class="form-outline mb-1" style="position: relative;">
+														<label class="form-label" for="confirmPassword">Confirm
+															Password</label> <input type="password" id="confirmPassword"
+															name="confirmPassword"
+															class="form-control form-control-lg" required>
+														<button type="button" id="toggleConfirmPassword"
+															onclick="togglePasswordVisibility('confirmPassword', 'eyeIconConfirm')"
+															style="position: absolute; right: 10px; top: 42px; background: transparent; border: none; cursor: pointer;">
+															<i class="fas fa-eye" id="eyeIconConfirm"></i>
+														</button>
+													</div>
+
+
+													<!-- Gender -->
+													<div
+														class="d-md-flex justify-content-start align-items-center mb-1 py-2">
+														<h6 class="mb-0 me-4">Giới tính:</h6>
+														<div class="form-check form-check-inline mb-0 me-4">
+															<input class="form-check-input" type="radio"
+																name="gender" id="femaleGender" value="female" required>
+															<label class="form-check-label" for="femaleGender">Nữ</label>
+														</div>
+														<div class="form-check form-check-inline mb-0 me-4">
+															<input class="form-check-input" type="radio"
+																name="gender" id="maleGender" value="male"> <label
+																class="form-check-label" for="maleGender">Nam</label>
 														</div>
 													</div>
 
-												</div>
-
-
-
-												<div data-mdb-input-init class="form-outline mb-4">
-													<input type="text" id="form3Example8"
-														class="form-control form-control-lg" /> <label
-														class="form-label" for="form3Example8">Địa chỉ</label>
-												</div>
-
-												<div
-													class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-													<h6 class="mb-0 me-4">Giới tính:</h6>
-
-													<div class="form-check form-check-inline mb-0 me-4">
-														<input class="form-check-input" type="radio"
-															name="inlineRadioOptions" id="femaleGender"
-															value="option1" /> <label class="form-check-label"
-															for="femaleGender">Nữ</label>
+													<!-- Date of Birth -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="dob">Ngày sinh</label> <input
+															type="date" id="dob" name="dob"
+															class="form-control form-control-lg" required>
 													</div>
-
-													<div class="form-check form-check-inline mb-0 me-4">
-														<input class="form-check-input" type="radio"
-															name="inlineRadioOptions" id="maleGender" value="option2" />
-														<label class="form-check-label" for="maleGender">Nam</label>
-													</div>
-
-
-
-												</div>
-
-												<div class="row">
-													<div class="col-md-6 mb-4">
-
-														<select data-mdb-select-init>
-															<option value="1">State</option>
-															<option value="2">Option 1</option>
-															<option value="3">Option 2</option>
-															<option value="4">Option 3</option>
+													<!-- Blood Group -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="bloodGroup">Nhóm
+															máu</label> <select id="bloodGroup" name="bloodGroup"
+															class="form-control form-control-lg" required>
+															<option value="">Chọn nhóm máu</option>
+															<!-- Loop through bloodGroups to populate options -->
+															<th:block th:each="bloodGroup : ${bloodGroups}">
+																<option th:value="${bloodGroup.bloodName}"
+																	th:text="${bloodGroup.bloodName}"></option>
+															</th:block>
 														</select>
-
 													</div>
-													<div class="col-md-6 mb-4">
 
-														<select data-mdb-select-init>
-															<option value="1">City</option>
-															<option value="2">Option 1</option>
-															<option value="3">Option 2</option>
-															<option value="4">Option 3</option>
-														</select>
-
+													<!-- Identification Number -->
+													<div class="form-outline mb-1">
+														<label class="form-label" for="idNumber">Số
+															CMND/CCCD/Hộ Chiếu*</label> <input type="text" id="idNumber"
+															name="idNumber" class="form-control form-control-lg"
+															required>
 													</div>
-												</div>
-
-												<div data-mdb-input-init class="form-outline mb-4">
-													<input type="date" id="form3Example9"
-														class="form-control form-control-lg" /> <label
-														class="form-label" for="form3Example9">Ngày sinh</label>
-												</div>
-
-												<div data-mdb-input-init class="form-outline mb-4">
-													<input type="text" id="form3Example90"
-														class="form-control form-control-lg" /> <label
-														class="form-label" for="form3Example90">Số
-														CMND/CCCD/Hộ Chiếu*</label>
-												</div>
 
 
-												<div data-mdb-input-init class="form-outline mb-4">
-													<input type="email" id="form3Example97"
-														class="form-control form-control-lg" /> <label
-														class="form-label" for="form3Example97">Email</label>
-												</div>
 
-												<div class="d-flex justify-content-center pt-3">
-
-													<button type="button" data-mdb-button-init
-														data-mdb-ripple-init class="btn btn-warning btn-lg ms-2">Đăng
-														kí</button>
-												</div>
-
+													<!-- Submit Button -->
+													<div class="d-flex justify-content-center pt-3">
+														<button type="submit"
+															class="btn custom-button btn-lg ms-2">Đăng ký</button>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -181,10 +241,9 @@ a.backtop.js-scroll-trigger.reveal {
 				</section>
 			</div>
 		</div>
-		</div>
 	</section>
 	<th:block th:replace="~{user/fragment/footer :: footer}"></th:block>
-	
+
 
 	<!-- 
     Essential Scripts
@@ -211,6 +270,117 @@ a.backtop.js-scroll-trigger.reveal {
 
 	<script src="js/script.js"></script>
 	<script src="js/contact.js"></script>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        // Clear previous error messages
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(elem => elem.remove());
+
+        let isValid = true;
+
+        function validateField(id, message) {
+            const field = document.getElementById(id);
+            if (!field.value.trim()) {
+                isValid = false;
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message text-danger mt-1';
+                errorMessage.innerText = message;
+                field.parentElement.appendChild(errorMessage);
+            }
+        }
+
+        validateField("fullName", "Vui lòng nhập họ và tên.");
+        validateField("address", "Vui lòng nhập địa chỉ.");
+        validateField("email", "Vui lòng nhập email hợp lệ.");
+        validateField("password", "Vui lòng nhập mật khẩu.");
+        validateField("confirmPassword", "Vui lòng nhập lại mật khẩu.");
+        validateField("idNumber", "Vui lòng nhập số CMND/CCCD/Hộ chiếu.");
+        validateField("dob", "Vui lòng chọn ngày sinh.");
+
+        const genderField = document.querySelector('input[name="gender"]:checked');
+        if (!genderField) {
+            isValid = false;
+            const genderError = document.createElement('div');
+            genderError.className = 'error-message text-danger mt-1';
+            genderError.innerText = "Vui lòng chọn giới tính.";
+            document.querySelector('.d-md-flex.justify-content-start').appendChild(genderError);
+        }
+
+        const bloodGroupField = document.getElementById("bloodGroup");
+        if (!bloodGroupField.value.trim()) {
+            isValid = false;
+            const bloodGroupError = document.createElement('div');
+            bloodGroupError.className = 'error-message text-danger mt-1';
+            bloodGroupError.innerText = "Vui lòng chọn nhóm máu.";
+            bloodGroupField.parentElement.appendChild(bloodGroupError);
+        }
+
+        // Check if password and confirm password match
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            isValid = false;
+            const confirmPasswordField = document.getElementById('confirmPassword');
+            const passwordMismatchError = document.createElement('div');
+            passwordMismatchError.className = 'error-message text-danger mt-1';
+            passwordMismatchError.innerText = "Mật khẩu không khớp.";
+            confirmPasswordField.parentElement.appendChild(passwordMismatchError);
+        }
+
+        // If any field is invalid, do not proceed with form submission
+        if (!isValid) return;
+
+        // Form data collection
+        const formData = new FormData();
+        formData.append("username", document.getElementById("fullName").value);
+        formData.append("password", document.getElementById("password").value);
+        formData.append("email", document.getElementById("email").value);
+        formData.append("cccd", document.getElementById("idNumber").value);
+        formData.append("gender", document.querySelector('input[name="gender"]:checked').value);
+        formData.append("dayOfBirth", document.getElementById("dob").value);
+        formData.append("address", document.getElementById("address").value);
+        formData.append("bloodGroup", document.getElementById("bloodGroup").value);
+
+        try {
+            const response = await fetch('http://localhost:8080/api/blockchain/addUser', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.text();
+            const responseMessage = document.getElementById('responseMessage');
+            if (responseMessage) {
+                responseMessage.innerHTML = `
+                    <div class="alert ${response.ok ? 'alert-success' : 'alert-danger'}">
+                        ${result}
+                    </div>`;
+            }
+        } catch (error) {
+            const responseMessage = document.getElementById('responseMessage');
+            if (responseMessage) {
+                responseMessage.innerHTML = `
+                    <div class="alert alert-danger">Có lỗi xảy ra: ${error.message}</div>`;
+            }
+        }
+    });
+
+    function togglePasswordVisibility(passwordFieldId, eyeIconId) {
+        const passwordInput = document.getElementById(passwordFieldId);
+        const eyeIcon = document.getElementById(eyeIconId);
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+</script>
 
 </body>
 </html>

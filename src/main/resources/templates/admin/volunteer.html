@@ -27,6 +27,12 @@
 	opacity: 0.7;
 }
 
+.avatar-container img {
+	height: 500px; /* Đặt chiều cao cố định */
+	width: 100%; /* Chiều rộng luôn chiếm toàn bộ */
+	object-fit: cover; /* Cắt ảnh để vừa với khung */
+}
+
 .card {
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -54,115 +60,98 @@
 			</div>
 			<!-- Main content -->
 			<!-- Main content -->
-			<section class="content">
+			<section class="content py-4">
 				<div class="container-fluid">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="card">
-								<img
-									src="https://png.pngtree.com/background/20211216/original/pngtree-business-morning-mens-office-portrait-photography-map-with-map-picture-image_1511861.jpg"
-									class="card-img-top" alt="Ảnh Nguyễn Văn C"
-									style="width: 100%; height: 300px; object-fit: cover;">
-								<div class="card-body">
-									<h5 class="card-title">Nguyễn Văn C</h5>
-									<p class="card-text">
-										<strong>Email:</strong> nguyenvanc@example.com <br> <strong>Nhóm
-											Máu:</strong> A+ <br> <strong>Trạng Thái:</strong> <span
-											class="badge bg-success">Sẵn Sàng</span><br> <strong>Ngày
-											hiến máu gần nhất:</strong> 12/12/2021
-									</p>
+					<div class="row g-3">
+						<div class="col-md-4" th:each="volunteer : ${volunteers}">
+							<div class="card h-100 shadow-sm">
+								<div
+									class="avatar-container position-relative overflow-hidden rounded-top">
+									<img id="userAvatar" class="card-img-top"
+										th:src="${volunteer.img != null && volunteer.img != '' ? '/loadImage?imageName=' + volunteer.img : 'https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo='}"
+										alt="Avatar của ${volunteer.fullName}">
+								</div>
 
-									<a href="#" onclick="issueCertificate(1)"
-										class="btn btn-warning btn-sm"> <i
-										class="fas fa-certificate"></i> Cấp Chứng Nhận
-									</a>
+								<div class="card-body d-flex flex-column">
+									<h5 class="card-title" th:text="${volunteer.fullName}">Nguyễn
+										Văn C</h5>
+									<p class="card-text mb-3">
+										<strong>Email:</strong> <span th:text="${volunteer.email}">nguyenvanc@example.com</span><br>
+										<strong>Nhóm Máu:</strong> <span
+											th:text="${volunteer.bloodType}">A+</span><br> <strong>Trạng
+											Thái:</strong> <span
+											th:classappend="${volunteer.status ? 'badge bg-success' : 'badge bg-warning'}">
+											<span
+											th:text="${volunteer.blood_status == 'successful' ? 'Hiến máu thành công' : 
+                                    (volunteer.blood_status == 'pending' ? 'Đang Chờ' : 'Sẵn Sàng')}">Sẵn
+												Sàng</span>
+										</span><br> <strong>Ngày hiến máu gần nhất:</strong> <span
+											th:text="${volunteer.formattedLastDonationDate}">12/12/2021</span>
+									</p>
+									<div class="mt-auto">
+										<a href="javascript:void(0);"
+											th:onclick="'issueCertificate(' + ${volunteer.id} + ')'"
+											th:classappend="${volunteer.status ? 'btn-warning btn-sm' : 'btn-success btn-sm'}"
+											th:data-status="${volunteer.status}"
+											th:disabled="${volunteer.status}"> <i
+											class="fas fa-certificate"></i> <span
+											th:text="${volunteer.status ? 'Đã cấp Chứng Nhận' : 'Cấp Chứng Nhận'}">Cấp
+												Chứng Nhận</span>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="col-md-3">
-							<div class="card">
-								<img
-									src="https://png.pngtree.com/background/20211216/original/pngtree-business-morning-mens-office-portrait-photography-map-with-map-picture-image_1511861.jpg"
-									class="card-img-top" alt="Ảnh Trần Thị D"
-									style="width: 100%; height: 300px; object-fit: cover;">
-								<div class="card-body">
-									<h5 class="card-title">Trần Thị D</h5>
-									<p class="card-text">
-										<strong>Email:</strong> tranthid@example.com <br> <strong>Nhóm
-											Máu:</strong> O- <br> <strong>Trạng Thái:</strong> <span
-											class="badge bg-warning">Đã Hiến Máu</span><br> <strong>Ngày
-											hiến máu gần nhất:</strong> 12/12/2021
-									</p>
-									<a href="#" onclick="issueCertificate(2)"
-										class="btn btn-success btn-sm"> <i
-										class="fas fa-certificate"></i> Đã cấp Chứng Nhận
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<img
-									src="https://png.pngtree.com/background/20211216/original/pngtree-business-morning-mens-office-portrait-photography-map-with-map-picture-image_1511861.jpg"
-									class="card-img-top" alt="Ảnh Nguyễn Văn C"
-									style="width: 100%; height: 300px; object-fit: cover;">
-								<div class="card-body">
-									<h5 class="card-title">Nguyễn Văn C</h5>
-									<p class="card-text">
-										<strong>Email:</strong> nguyenvanc@example.com <br> <strong>Nhóm
-											Máu:</strong> A+ <br> <strong>Trạng Thái:</strong> <span
-											class="badge bg-success">Sẵn Sàng</span><br> <strong>Ngày
-											hiến máu gần nhất:</strong> 12/12/2021
-									</p>
-
-									<a href="#" onclick="issueCertificate(1)"
-										class="btn btn-warning btn-sm"> <i
-										class="fas fa-certificate"></i> Cấp Chứng Nhận
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="card">
-								<img
-									src="https://png.pngtree.com/background/20211216/original/pngtree-business-morning-mens-office-portrait-photography-map-with-map-picture-image_1511861.jpg"
-									class="card-img-top" alt="Ảnh Nguyễn Văn C"
-									style="width: 100%; height: 300px; object-fit: cover;">
-								<div class="card-body">
-									<h5 class="card-title">Nguyễn Văn C</h5>
-									<p class="card-text">
-										<strong>Email:</strong> nguyenvanc@example.com <br> <strong>Nhóm
-											Máu:</strong> A+ <br> <strong>Trạng Thái:</strong> <span
-											class="badge bg-success">Sẵn Sàng</span><br> <strong>Ngày
-											hiến máu gần nhất:</strong> 12/12/2021
-									</p>
-
-									<a href="#" onclick="issueCertificate(1)"
-										class="btn btn-warning btn-sm"> <i
-										class="fas fa-certificate"></i> Cấp Chứng Nhận
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- Add more volunteer cards here -->
 					</div>
 				</div>
 			</section>
 
 
+
+
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script>
+				function issueCertificate(volunteerId) {
+					$.ajax({
+						url : '/admin/volunteer/issueCertificate/'
+								+ volunteerId,
+						method : 'GET',
+						success : function(response) {
+							alert(response); // Hiển thị thông báo thành công
+
+							// Tìm nút tương ứng với volunteerId
+							var button = $("a[th\\:onclick*='issueCertificate("
+									+ volunteerId + ")']");
+
+							// Vô hiệu hóa nút sau khi cấp chứng nhận
+							button.prop('disabled', true); // Vô hiệu hóa nút
+							button.removeClass('btn-success').addClass(
+									'btn-warning'); // Đổi màu nút thành vàng
+							button.find('span').text('Đã cấp Chứng Nhận'); // Cập nhật văn bản nút
+
+							// Cập nhật trạng thái vào data-status
+							button.attr('data-status', 'true'); // Thay đổi trạng thái trong data attribute
+							setTimeout(function() {
+								location.reload();
+							}, 1000);
+						},
+						error : function(xhr, status, error) {
+							alert("Lỗi: " + xhr.responseText); // Hiển thị thông báo lỗi
+						}
+					});
+				}
+			</script>
+
+
+			<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
+
 		</div>
 
-
-		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
-
-	</div>
-
-	<!-- jQuery -->
-	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
-	<!-- Bootstrap 4 -->
-	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<!-- AdminLTE App -->
-	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+		<!-- jQuery -->
+		<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+		<!-- Bootstrap 4 -->
+		<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		<!-- AdminLTE App -->
+		<script th:src="@{/dist/js/adminlte.min.js}"></script>
 </body>
 </html>

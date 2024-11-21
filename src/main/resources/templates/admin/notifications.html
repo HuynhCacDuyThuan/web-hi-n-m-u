@@ -62,7 +62,7 @@
 							<div class="card">
 								<div class="card-header">
 									<h3 class="card-title">Quản Lý Thông Báo</h3>
-									
+
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0">
@@ -77,30 +77,23 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Thông báo hiến máu</td>
-												<td>Đợt hiến máu nhân đạo tại Hà Nội</td>
-												<td>15/10/2024</td>
-												<td><a href="#" class="btn btn-primary btn-sm"><i
-														class="fas fa-eye"></i> Xem</a> <a href="#" onclick="confirmDelete(1)"
-													class="btn btn-danger btn-sm"><i
-														class="fas fa-trash-alt"></i> Xóa</a></td>
+											<tr th:each="notification : ${notifications}"
+												th:if="${notification.id} != 0">
+												<td th:text="${notification.id}">1</td>
+												<td th:text="${notification.title}">Thông báo hiến máu</td>
+												<td th:text="${notification.content}">Đợt hiến máu nhân
+													đạo tại Hà Nội</td>
+												<td th:text="${notification.noticeDate}">15/10/2024</td>
+												<td> <a href="#"
+													th:onclick="'confirmDelete(' + ${notification.id} + ')'"
+													class="btn btn-danger btn-sm"> <i
+														class="fas fa-trash-alt"></i> Xóa
+												</a></td>
 											</tr>
-											<tr>
-												<td>2</td>
-												<td>Thông báo lịch hiến máu</td>
-												<td>Thông báo lịch hiến máu tại TP. Hồ Chí Minh</td>
-												<td>10/10/2024</td>
-												<td><a href="#" class="btn btn-primary btn-sm"><i
-														class="fas fa-eye"></i> Xem</a> <a href="#" onclick="confirmDelete(2)"
-													class="btn btn-danger btn-sm"><i
-														class="fas fa-trash-alt"></i> Xóa</a></td>
-											</tr>
-											<!-- Thêm thông báo khác -->
 										</tbody>
 									</table>
 								</div>
+
 								<!-- /.card-body -->
 							</div>
 							<!-- /.card -->
@@ -114,6 +107,31 @@
 
 		</div>
 
+		<script>
+    function confirmDelete(notificationId) {
+       
+            // Perform DELETE request
+            fetch(`/api/blockchain/notifications/${notificationId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                   
+                    location.reload(); // Reload to reflect the change
+                } else {
+                    response.text().then(text => alert("Failed to delete notification: " + text));
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting notification:", error);
+                alert("An error occurred while deleting the notification.");
+            });
+        
+    }
+</script>
 
 		<th:block th:replace="~{admin/fragment/footer :: footer}"></th:block>
 
